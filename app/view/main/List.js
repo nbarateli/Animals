@@ -6,14 +6,13 @@ Ext.define('Animals.view.main.List', {
     xtype: 'mainlist',
 
     requires: [
-        'Animals.store.Species'
+        'Ext.data.Store',
+        'Ext.toolbar.Paging'
     ],
 
     title: 'Species',
 
-    store: {
-        type: 'personnel'
-    },
+    store: 'species',
 
     columns: [
         {text: 'Name', dataIndex: 'name', renderer: value => value.KA, sortable: true},
@@ -24,12 +23,27 @@ Ext.define('Animals.view.main.List', {
             text: 'Source',
             dataIndex: 'source',
             flex: 1,
-            renderer: value => `<a href='${value.attached_document}'>${value.name.KA}</a>`,
+            renderer: value => `<a target="_blank" href='${value.attached_document}'>${value.name.KA}</a>`,
             sortable: true
         }
     ],
 
     listeners: {
-        select: 'onItemSelected'
+        // select: 'onItemSelected',
+        // tap: 'onItemSelected',
+        itemdblclick: 'onItemSelected'
+    },
+    bbar: {
+        xtype: 'pagingtoolbar',
+        displayInfo: true,
+        displayMsg: 'Displaying topics {0} - {1} of {2}',
+        emptyMsg: "No topics to display",
+
+        items: ['-', {
+            bind: '{expanded ? "Hide Preview" : "Show Preview"}',
+            pressed: '{expanded}',
+            enableToggle: true,
+            toggleHandler: 'onToggleExpanded'
+        }]
     }
 });

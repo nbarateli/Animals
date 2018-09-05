@@ -8,7 +8,6 @@
 Ext.define('Animals.view.main.Main', {
     extend: 'Ext.tab.Panel',
     xtype: 'app-main',
-
     requires: [
         'Ext.plugin.Viewport',
         'Ext.window.MessageBox',
@@ -76,29 +75,33 @@ Ext.define('Animals.view.main.Main', {
     },
 
     items: [{
-        title: 'Home',
+        title: 'სახეობები',
         iconCls: 'fa-home',
         // The following grid shares a store with the classic version's grid as well!
         items: [{
-            xtype: 'mainlist'
+            xtype: 'mainlist',
+            stateful: true,
+            stateId: 'statefulgrid',
         }]
-    }, {
-        title: 'Users',
-        iconCls: 'fa-user',
-        bind: {
-            html: '{loremIpsum}'
-        }
-    }, {
-        title: 'Groups',
-        iconCls: 'fa-users',
-        bind: {
-            html: '{loremIpsum}'
-        }
-    }, {
-        title: 'Settings',
-        iconCls: 'fa-cog',
-        bind: {
-            html: '{loremIpsum}'
-        }
-    }]
+    },
+        //     {
+        //     title: 'Users',
+        //     iconCls: 'fa-user',
+        //     bind: {
+        //         html: '{loremIpsum}'
+        //     }
+        // }, {
+        //     title: 'Groups',
+        //     iconCls: 'fa-users',
+        //     bind: {
+        //         html: '{loremIpsum}'
+        //     }
+        // }, {
+        //     title: 'Settings',
+        //     iconCls: 'fa-cog',
+        //     bind: {
+        //         html: '{loremIpsum}'
+        //     }
+        // }
+    ]
 });
