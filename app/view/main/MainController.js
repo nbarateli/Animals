@@ -19,6 +19,7 @@ Ext.define('Animals.view.main.MainController', {
             modal: true,
             defaultType: 'textfield',
             viewModel: {
+                type: 'species',
                 data: {
                     species: record
                 }
@@ -27,7 +28,7 @@ Ext.define('Animals.view.main.MainController', {
                 {
                     fieldLabel: 'სახეობის სახელი',
                     name: 'name',
-                    bind: '{species.name.KA}'
+                    bind: '{species.name_KA}'
                 },
                 {
                     xtype: 'numberfield',
@@ -47,7 +48,7 @@ Ext.define('Animals.view.main.MainController', {
                 {
                     fieldLabel: 'მუნიციპალიტეტი',
                     name: 'municipality',
-                    bind: '{species.municipality.KA}'
+                    bind: '{species.municipality_KA}'
 
                 }
             ],

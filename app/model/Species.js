@@ -4,13 +4,12 @@ Ext.define('Animals.model.Species', {
     requires: ['Ext.data.field.Date'],
     fields: [
         {name: 'id', type: 'int'},
-        //array of multilang field
-        {name: 'name', type: 'auto', sortType: val => val[Object.keys(val)[0]]},
+        {name: 'name_KA', type: 'string'}, {name: 'name_EN', type: 'string'},
         {name: 'date', type: 'auto'},
         {name: 'population', type: 'integer'},
-        {
-            name: 'source', type: 'auto', sortType: val => val.name[Object.keys(val.name)[0]]
-        },
-        {name: 'municipality', type: 'auto', sortType: val => val[Object.keys(val)[0]]}
+        {name: 'source', type: 'auto'},
+        {name: 'municipality_EN', type: 'string'}, {name: 'municipality_KA', type: 'string'},
+        {name: 'source_name_KA', type: 'string'}, {name: 'source_name_EN', type: 'string'},
+        {name: 'source_attached_document', type: 'string'}
     ]
 });

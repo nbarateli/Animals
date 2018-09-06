@@ -17,45 +17,42 @@ Ext.define('Animals.Application', {
     init: function () {
         Ext.create('Ext.data.Store', {
             // extend: 'Ext.data.Store',
+            requires: ['Ext.data.field.Date', 'Ext.data.proxy.LocalStorage'],
 
             alias: 'store.personnel',
-
+            autoload: true,
             model: 'Animals.model.Species',
             storeId: 'species',
             data: {
                 items: [
                     {
                         id: 1,
-                        name: {KA: 'მგელი', EN: 'wolf'},
+                        name_KA: 'მგელი', name_EN: 'wolf',
                         date: '6/12/2015',
                         population: 2456,
-                        municipality: {KA: 'თბილისი', EN: 'Tbilisi'},
-                        source: {
-                            name: {KA: 'წყაროების წყარო', EN: 'The source to end all sources'},
-                            attached_document: 'source.jpg'
-                        }
+                        municipality_KA: 'თბილისი', municipality_EN: 'Tbilisi',
+                        source_name_KA: 'წყაროების წყარო', source_name_EN: 'The source to end all sources',
+                        source_attached_document: 'source.jpg'
+
                     }, {
                         id: 2,
-                        name: {KA: 'ვეფხვი', EN: 'Tiger'},
+                        name_KA: 'ვეფხვი', name_EN: 'Tiger',
                         date: '11/22/2015',
                         population: 3456,
-                        municipality: {KA: 'ქუთაისი', EN: 'Kutaisi'},
-                        source: {
-                            name: {KA: 'ჩემი ძმაკანა ტოო', EN: 'My Dzmakana'},
-                            attached_document: 'source.jpg'
-                        }
+                        municipality_KA: 'ქუთაისი', municipality_EN: 'Kutaisi',
+                        source_name_KA: 'ჩემი ძმაკანა ტოო', source_name_EN: 'My Dzmakana',
+                        source_attached_document: 'source.jpg'
+
                     }, {
                         id: 3,
-                        name: {KA: 'ნიყვი', EN: 'Ceasar\'s shroomz'},
+                        name_KA: 'ნიყვი', name_EN: 'Ceasar\'s shroomz',
                         date: '6/12/2015',
                         population: 9856,
+                        municipality_KA: 'ლანჩხუთი', municipality_EN: 'Lunchfive',
 
-                        municipality: {KA: 'ლანჩხუთი', EN: 'Lunchfive'},
+                        source_name_KA: 'თერიბლ', source_name_EN: 'Terrible',
+                        source_attached_document: 'source.jpg'
 
-                        source: {
-                            name: {KA: 'თერიბლ', EN: 'Terrible'},
-                            attached_document: 'source.jpg'
-                        }
                     }
                 ]
             },

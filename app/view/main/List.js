@@ -15,15 +15,18 @@ Ext.define('Animals.view.main.List', {
     store: 'species',
 
     columns: [
-        {text: 'Name', dataIndex: 'name', renderer: value => value.KA, sortable: true},
+        {text: 'Name', dataIndex: 'name_KA', sortable: true},
         {text: 'Date', dataIndex: 'date', flex: 1, sortable: true},
         {text: 'Population', dataIndex: 'population', flex: 1, sortable: true},
-        {text: 'Municipality', dataIndex: 'municipality', flex: 1, renderer: value => value.KA, sortable: true},
+        {text: 'Municipality', dataIndex: 'municipality_KA', flex: 1, sortable: true},
         {
             text: 'Source',
-            dataIndex: 'source',
+            dataIndex: 'source_name_KA',
             flex: 1,
-            renderer: value => `<a target="_blank" href='${value.attached_document}'>${value.name.KA}</a>`,
+            renderer: (value, entry, el) => {
+
+                return `<a target="_blank" href='${el.data.attached_document}'>${value}</a>`
+            },
             sortable: true
         }
     ],
