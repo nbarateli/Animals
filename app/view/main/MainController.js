@@ -176,5 +176,19 @@ Ext.define('Animals.view.main.MainController', {
         });
 
         // Ext.Msg.confirm('Confirm', 'Are you sure?', 'onConfirm', this);
+    },
+    onRemoveItem: function (e) {
+        let species = Ext.data.StoreManager.lookup('species');
+        let item = e.up('panel').selection;
+        if (item !== null) {
+            Ext.Msg.confirm('ყურადღება', 'ნამდვილად გსურთ ამ მონაცემის წაშლა?', () => {
+                species.remove(item);
+                species.sync();
+                Ext.Msg.alert('successfully removed');
+            })
+        } else {
+
+        }
+
     }
 });

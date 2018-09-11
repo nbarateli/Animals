@@ -11,6 +11,10 @@ Ext.define('Animals.view.main.List', {
         tooltip: 'Add a new item to the store',
         handler: 'onAddItem'
     }, {
+        text: '-',
+        tooltip: 'Remove the selected item from the store',
+        handler: 'onRemoveItem'
+    }, {
         text: 'Clear Filters',
         tooltip: 'Clear all filters',
         handler: 'onClearFilters'
@@ -86,7 +90,8 @@ Ext.define('Animals.view.main.List', {
             enableToggle: true,
             toggleHandler: 'onToggleExpanded'
         }]
-    }, plugins: {
+    },
+    plugins: {
         gridfilters: true
     },
 
