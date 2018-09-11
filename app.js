@@ -2,7 +2,7 @@
  * This file launches the application by asking Ext JS to create
  * and launch() the Application class.
  */
-let species;
+let species; //global only during development
 const data = {
     items: [
         {

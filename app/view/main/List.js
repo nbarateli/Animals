@@ -1,13 +1,24 @@
 /**
  * This view is an example list of people.
  */
+
 Ext.define('Animals.view.main.List', {
     extend: 'Ext.grid.Panel',
     xtype: 'mainlist',
 
+    tbar: [{
+        text: '+',
+        tooltip: 'Add a new item to the store',
+        handler: 'onAddItem'
+    }, {
+        text: 'Clear Filters',
+        tooltip: 'Clear all filters',
+        handler: 'onClearFilters'
+    }],
     requires: [
         'Ext.data.Store',
-        'Ext.toolbar.Paging'
+        'Ext.toolbar.Paging',
+        'Ext.grid.filters.Filters'
     ],
 
     title: 'Species',
@@ -15,10 +26,31 @@ Ext.define('Animals.view.main.List', {
     store: 'species',
 
     columns: [
-        {text: 'Name', dataIndex: 'name_KA', sortable: true},
-        {text: 'Date', dataIndex: 'date', flex: 1, sortable: true},
-        {text: 'Population', dataIndex: 'population', flex: 1, sortable: true},
-        {text: 'Municipality', dataIndex: 'municipality_KA', flex: 1, sortable: true},
+        {
+            text: 'Name', dataIndex: 'name_KA', sortable: true, filter: {
+                type: 'string',
+                itemDefaults: {
+                    emptyText: 'Search for...'
+                }
+            }
+        },
+        {
+            text: 'Date',
+            dataIndex: 'date',
+            flex: 1,
+            sortable: true,
+            filter: 'date',
+            renderer: Ext.util.Format.dateRenderer('m/d/Y')
+        },
+        {text: 'Population', dataIndex: 'population', flex: 1, sortable: true, filter: 'number'},
+        {
+            text: 'Municipality', dataIndex: 'municipality_KA', flex: 1, sortable: true, filter: {
+                type: 'string',
+                itemDefaults: {
+                    emptyText: 'Search for...'
+                }
+            }
+        },
         {
             text: 'Source',
             dataIndex: 'source_name_KA',
@@ -27,7 +59,13 @@ Ext.define('Animals.view.main.List', {
 
                 return `<a target="_blank" href='${el.data.attached_document}'>${value}</a>`
             },
-            sortable: true
+            sortable: true,
+            filter: {
+                type: 'string',
+                itemDefaults: {
+                    emptyText: 'Search for...'
+                }
+            }
         }
     ],
 
@@ -48,5 +86,8 @@ Ext.define('Animals.view.main.List', {
             enableToggle: true,
             toggleHandler: 'onToggleExpanded'
         }]
-    }
+    }, plugins: {
+        gridfilters: true
+    },
+
 });

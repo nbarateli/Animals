@@ -5,18 +5,29 @@ Ext.define('Animals.model.Species', {
     fields: [
         {name: 'id', type: 'int'},
         {name: 'name_KA', type: 'string'}, {name: 'name_EN', type: 'string'},
-        {name: 'date', type: 'auto'},
+        {name: 'date', type: 'date'},
         {name: 'population', type: 'integer'},
         {name: 'source', type: 'auto'},
         {name: 'municipality_EN', type: 'string'}, {name: 'municipality_KA', type: 'string'},
         {name: 'source_name_KA', type: 'string'}, {name: 'source_name_EN', type: 'string'},
         {name: 'source_attached_document', type: 'string'}
     ],
-    proxy: {
-        type: 'localstorage',
-        reader: {
-            type: 'json',
-            id: 'species',
-        }
+    validators: {
+        name_KA: 'presence', name_EN: 'presence',
+        municipality_EN: 'presence', municipality_KA: 'presence',
+        source_name_KA: 'presence', source_name_EN: 'presence',
+        population: pop => pop >= 0
     },
-});
+    proxy:
+        {
+            type: 'localstorage',
+            reader:
+                {
+                    type: 'json',
+                    id:
+                        'species',
+                }
+        }
+    ,
+})
+;

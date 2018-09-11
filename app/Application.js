@@ -22,10 +22,7 @@ Ext.define('Animals.Application', {
             alias: 'store.personnel',
             autoload: true,
             model: 'Animals.model.Species',
-            storeId: 'species',
-            // load: function (e) {
-            //     console.log(e)
-            // }
+            storeId: 'species'
         });
 
         Ext.state.Manager.setProvider(new Ext.state.CookieProvider({
