@@ -83,13 +83,26 @@ Ext.define('Animals.view.main.List', {
         displayInfo: true,
         displayMsg: 'Displaying topics {0} - {1} of {2}',
         emptyMsg: "No topics to display",
-
         items: ['-', {
             bind: '{expanded ? "Hide Preview" : "Show Preview"}',
             pressed: '{expanded}',
             enableToggle: true,
             toggleHandler: 'onToggleExpanded'
-        }]
+        }],
+        doRefresh: function (toolbar) {
+
+            let panel = toolbar.up('panel');
+            let loadingMask = new Ext.LoadMask({
+                msg: 'Please wait...',
+                target: panel
+            });
+
+            loadingMask.show();
+            setInterval(() => panel.store.load((records, operation, success) => {
+
+                loadingMask.hide();
+            }), 200)//only for testing
+        }
     },
     plugins: {
         gridfilters: true
