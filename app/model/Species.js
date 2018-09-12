@@ -18,16 +18,15 @@ Ext.define('Animals.model.Species', {
         source_name_KA: 'presence', source_name_EN: 'presence',
         population: pop => pop >= 0
     },
-    proxy:
-        {
-            type: 'localstorage',
-            reader:
-                {
-                    type: 'json',
-                    id:
-                        'species',
-                }
+    proxy: {
+        type: 'memory',
+        enablePaging: true,
+        reader: {
+            type: 'json',
+            id:
+                'species',
         }
+    }
     ,
 })
 ;

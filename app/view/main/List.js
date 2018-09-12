@@ -5,7 +5,7 @@
 Ext.define('Animals.view.main.List', {
     extend: 'Ext.grid.Panel',
     xtype: 'mainlist',
-
+    minHeight: window.innerHeight * 0.5,
     tbar: [{
         text: '+',
         tooltip: 'Add a new item to the store',
@@ -78,6 +78,8 @@ Ext.define('Animals.view.main.List', {
         // tap: 'onItemSelected',
         itemdblclick: 'onItemSelected'
     },
+    loadMask: true,
+
     bbar: {
         xtype: 'pagingtoolbar',
         displayInfo: true,
