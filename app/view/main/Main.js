@@ -57,7 +57,7 @@ Ext.define('Animals.view.main.Main', {
     },
 
     defaults: {
-        bodyPadding: 20,
+        bodyPadding: 5,
         tabConfig: {
             plugins: 'responsive',
             responsiveConfig: {
