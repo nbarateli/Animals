@@ -184,6 +184,7 @@ Ext.define('Animals.view.main.MainController', {
             Ext.Msg.confirm('ყურადღება', 'ნამდვილად გსურთ ამ მონაცემის წაშლა?', () => {
                 species.remove(item);
                 species.sync();
+
                 Ext.Msg.alert('successfully removed');
             })
         } else {
