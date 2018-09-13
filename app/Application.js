@@ -156,7 +156,7 @@ Ext.define('Animals.Application', {
             // extend: 'Ext.data.Store',
             requires: ['Ext.data.field.Date', 'Ext.data.proxy.LocalStorage'],
             pageSize: 5,
-            alias: 'store.personnel',
+            alias: 'store.species',
             autoload: true,
             model: 'Animals.model.Species',
             storeId: 'species',
