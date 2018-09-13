@@ -4,7 +4,17 @@
  * initialization details.
  */
 data = {
-    "items": [{
+    municipalities: [
+        {name_KA: 'თბილისი', name_EN: 'Tbilisi', id: 1},
+        {name_KA: 'ქუთაისი', name_EN: 'Kutaisi', id: 2},
+        {name_KA: 'ლანჩხუთი', name_EN: 'Lunchfive', id: 3},
+        {name_KA: 'მანგლისი', name_EN: 'Manglease', id: 4},
+        {name_KA: 'ზუგდიდი', name_EN: 'Zugdidi', id: 5},
+        {name_KA: 'ვაკანდა', name_EN: 'Wakanda', id: 6},
+        {name_KA: 'ჩოხატაური', name_EN: 'Chokhatauri', id: 7},
+        {name_KA: 'ფაბრიკა', name_EN: 'Fabrika', id: 8},
+    ],
+    items: [{
         "name_KA": "მგელი",
         "name_EN": "wolf",
         "date": "2015-06-11T20:00:00.000Z",
@@ -154,12 +164,15 @@ Ext.define('Animals.Application', {
     init: function () {
         Ext.create('Ext.data.Store', {
             requires: ['Ext.data.field.Date', 'Ext.data.proxy.LocalStorage'],
-            pageSize: 5,
+            pageSize: 15,
             alias: 'store.species',
             autoload: true,
             model: 'Animals.model.Species',
             storeId: 'species',
             data: data.items
+        });
+        Ext.create('Animals.store.Municipalities', {
+            data: data.municipalities, storeId: 'municipalities'
         });
         Ext.state.Manager.setProvider(new Ext.state.CookieProvider({
             expires: new Date(Ext.Date.now() + (1000 * 60 * 60 * 24 * 90)) // 90 days

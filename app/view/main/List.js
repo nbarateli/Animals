@@ -31,7 +31,7 @@ Ext.define('Animals.view.main.List', {
 
     columns: [
         {
-            text: 'Name', flex: 1,
+            text: 'Name', flex: 2,
             dataIndex: 'name_KA',
             renderer: (val, el, entry) => `${entry.data.name_KA}\t• ${entry.data.name_EN}`,
             sortable: true,
@@ -50,9 +50,12 @@ Ext.define('Animals.view.main.List', {
             filter: 'date',
             renderer: Ext.util.Format.dateRenderer('m/d/Y')
         },
-        {text: 'Population', dataIndex: 'population', flex: 1, sortable: true, filter: 'number'},
         {
-            text: 'Municipality', dataIndex: 'municipality_KA', flex: 1,
+            text: 'Population', dataIndex: 'population',
+            flex: 0.75, sortable: true, filter: 'number'
+        },
+        {
+            text: 'Municipality', dataIndex: 'municipality_KA', flex: 2,
             renderer: (val, el, entry) => `${entry.data.municipality_KA}\t• ${entry.data.municipality_EN}`,
             sortable: true, filter: {
                 type: 'string',
@@ -64,7 +67,7 @@ Ext.define('Animals.view.main.List', {
         {
             text: 'Source',
             dataIndex: 'source_name_KA',
-            flex: 1,
+            flex: 2,
             renderer: (value, elem, entry) => `<a target="_blank" href='${entry.data.source_attached_document}'>${value}</a> \t• <a target="_blank" href='${entry.data.source_attached_document}'>${entry.data.source_name_EN}</a>`,
             sortable: true,
             filter: {
