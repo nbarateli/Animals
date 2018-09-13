@@ -28,6 +28,5 @@ Ext.define('Animals.model.Species', {
                 'species',
         }
     }
-    ,
 })
 ;

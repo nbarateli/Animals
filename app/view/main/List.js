@@ -5,7 +5,7 @@
 Ext.define('Animals.view.main.List', {
     extend: 'Ext.grid.Panel',
     xtype: 'mainlist',
-    minHeight: window.innerHeight * 0.5,
+    minHeight: window.innerHeight * 0.65,
     tbar: [{
         text: '+',
         tooltip: 'Add a new item to the store',
@@ -55,8 +55,11 @@ Ext.define('Animals.view.main.List', {
             flex: 0.75, sortable: true, filter: 'number'
         },
         {
-            text: 'Municipality', dataIndex: 'municipality_KA', flex: 2,
-            renderer: (val, el, entry) => `${entry.data.municipality_KA}\t• ${entry.data.municipality_EN}`,
+            text: 'Municipality', dataIndex: 'municipality', flex: 2,
+            renderer: (val, el, entry) => {
+                if (typeof  val === "number") val = Ext.data.StoreManager.lookup('municipalities').getAt(val - 1);
+                return `${val.data.name_KA}\t• ${val.data.name_EN}`
+            },
             sortable: true, filter: {
                 type: 'string',
                 itemDefaults: {

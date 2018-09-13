@@ -5,7 +5,7 @@ Ext.define('Animals.view.main.SpeciesForm',
         title: '',
         height: 500,
         width: 380,
-        bodyPadding: 10,
+        bodyPadding: 5,
         floating: true,
         closable: true,
         modal: true,
@@ -38,23 +38,21 @@ Ext.define('Animals.view.main.SpeciesForm',
                 name: 'date',
                 bind: '{species.date}',
                 format: 'm/d/Y'
-            }, {
+            },
+            {
                 xtype: 'combobox',
                 store: 'municipalities',
                 fieldLabel: 'მუნიციპალიტეტი',
                 displayField: 'name_KA',
                 valueField: 'id',
                 name: 'municipality',
-                bind: '{species.municipality}'
-            },
-            {
-                fieldLabel: 'მუნიციპალიტეტი',
-                name: 'municipality',
-                bind: '{species.municipality_KA}'
-            }, {
-                fieldLabel: 'მუნიციპალიტეტი (EN)',
-                name: 'municipality_en',
-                bind: '{species.municipality_EN}'
+                bind: '{species.municipality}',
+                // listeners: {
+                //     change: (c, newVal) => {
+                //         console.log(c, newVal, Ext.data.StoreManager.lookup('municipalities').getAt(newVal - 1))
+                //
+                //     },
+                // }
             },
             {
                 fieldLabel: 'წყარო',
