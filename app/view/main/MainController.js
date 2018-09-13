@@ -12,7 +12,7 @@ Ext.define('Animals.view.main.MainController', {
         let panel = Ext.create('Ext.form.Panel', {
             renderTo: document.body,
             title: 'შეცვლა',
-            height: 350,
+            height: 500,
             width: 300,
             bodyPadding: 10,
             floating: true,
@@ -33,6 +33,11 @@ Ext.define('Animals.view.main.MainController', {
                     bind: '{species.name_KA}'
                 },
                 {
+                    fieldLabel: 'სახეობის სახელი (EN)',
+                    name: 'name_en',
+                    bind: '{species.name_EN}'
+                },
+                {
                     xtype: 'numberfield',
                     fieldLabel: 'რაოდენობა',
                     name: 'population',
@@ -51,7 +56,19 @@ Ext.define('Animals.view.main.MainController', {
                     fieldLabel: 'მუნიციპალიტეტი',
                     name: 'municipality',
                     bind: '{species.municipality_KA}'
-
+                }, {
+                    fieldLabel: 'მუნიციპალიტეტი (EN)',
+                    name: 'municipality_en',
+                    bind: '{species.municipality_EN}'
+                },
+                {
+                    fieldLabel: 'წყარო',
+                    name: 'source_name',
+                    bind: '{species.source_name_KA}'
+                }, {
+                    fieldLabel: 'წყარო (EN)',
+                    name: 'source_name_en',
+                    bind: '{species.source_name_EN}'
                 }
             ],
             // Reset and Submit buttons

@@ -31,7 +31,10 @@ Ext.define('Animals.view.main.List', {
 
     columns: [
         {
-            text: 'Name', dataIndex: 'name_KA', sortable: true, filter: {
+            text: 'Name', flex: 1,
+            dataIndex: 'name_KA',
+            renderer: (val, el, entry) => `${entry.data.name_KA}\t• ${entry.data.name_EN}`,
+            sortable: true, filter: {
                 type: 'string',
                 itemDefaults: {
                     emptyText: 'Search for...'
@@ -48,7 +51,9 @@ Ext.define('Animals.view.main.List', {
         },
         {text: 'Population', dataIndex: 'population', flex: 1, sortable: true, filter: 'number'},
         {
-            text: 'Municipality', dataIndex: 'municipality_KA', flex: 1, sortable: true, filter: {
+            text: 'Municipality', dataIndex: 'municipality_KA', flex: 1,
+            renderer: (val, el, entry) => `${entry.data.municipality_KA}\t• ${entry.data.municipality_EN}`,
+            sortable: true, filter: {
                 type: 'string',
                 itemDefaults: {
                     emptyText: 'Search for...'
@@ -59,10 +64,7 @@ Ext.define('Animals.view.main.List', {
             text: 'Source',
             dataIndex: 'source_name_KA',
             flex: 1,
-            renderer: (value, entry, el) => {
-
-                return `<a target="_blank" href='${el.data.attached_document}'>${value}</a>`
-            },
+            renderer: (value, elem, entry) => `<a target="_blank" href='${entry.data.source_attached_document}'>${value}</a> \t• <a target="_blank" href='${entry.data.source_attached_document}'>${entry.data.source_name_EN}</a>`,
             sortable: true,
             filter: {
                 type: 'string',
