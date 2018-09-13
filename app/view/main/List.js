@@ -34,10 +34,11 @@ Ext.define('Animals.view.main.List', {
             text: 'Name', flex: 1,
             dataIndex: 'name_KA',
             renderer: (val, el, entry) => `${entry.data.name_KA}\t• ${entry.data.name_EN}`,
-            sortable: true, filter: {
+            sortable: true,
+            filter: {
                 type: 'string',
                 itemDefaults: {
-                    emptyText: 'Search for...'
+                    emptyText: 'Search for... (KA)'
                 }
             }
         },
@@ -56,7 +57,7 @@ Ext.define('Animals.view.main.List', {
             sortable: true, filter: {
                 type: 'string',
                 itemDefaults: {
-                    emptyText: 'Search for...'
+                    emptyText: 'Search for... (KA)'
                 }
             }
         },
@@ -69,7 +70,7 @@ Ext.define('Animals.view.main.List', {
             filter: {
                 type: 'string',
                 itemDefaults: {
-                    emptyText: 'Search for...'
+                    emptyText: 'Search for... (KA)'
                 }
             }
         }
@@ -108,8 +109,6 @@ Ext.define('Animals.view.main.List', {
             }), 200)//only for testing
         }
     },
-    plugins: {
-        gridfilters: true
-    },
+    plugins: 'gridfilters'
 
 });

@@ -153,7 +153,6 @@ Ext.define('Animals.Application', {
     },
     init: function () {
         Ext.create('Ext.data.Store', {
-            // extend: 'Ext.data.Store',
             requires: ['Ext.data.field.Date', 'Ext.data.proxy.LocalStorage'],
             pageSize: 5,
             alias: 'store.species',
@@ -162,7 +161,6 @@ Ext.define('Animals.Application', {
             storeId: 'species',
             data: data.items
         });
-
         Ext.state.Manager.setProvider(new Ext.state.CookieProvider({
             expires: new Date(Ext.Date.now() + (1000 * 60 * 60 * 24 * 90)) // 90 days
         }));

@@ -131,7 +131,7 @@ Ext.application({
         //     data.items.map(e => species.add(e));
         //     species.sync();
         // })() : species.load();
-        species.load();
+        // species.load();
         // window.localStorage.initialEntry = false;
     },
     requires: [
