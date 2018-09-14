@@ -1,4 +1,4 @@
-Ext.define('Animals.model.Species', {
+Ext.define('Animals.model.SpeciesData', {
     extend: 'Animals.model.Base',
 
     requires: ['Ext.data.field.Date', 'Ext.data.proxy.LocalStorage'],
@@ -25,7 +25,7 @@ Ext.define('Animals.model.Species', {
         reader: {
             type: 'json',
             id:
-                'species',
+                'speciesdata',
         }
     }
 })

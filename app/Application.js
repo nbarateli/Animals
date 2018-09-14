@@ -164,9 +164,9 @@ Ext.define('Animals.Application', {
         Ext.create('Ext.data.Store', {
             requires: ['Ext.data.field.Date', 'Ext.data.proxy.LocalStorage'],
             pageSize: 14,
-            alias: 'store.species',
-            model: 'Animals.model.Species',
-            storeId: 'species',
+            alias: 'store.speciesdata',
+            model: 'Animals.model.SpeciesData',
+            storeId: 'speciesdata',
             data: processItems(data.items, mun),
         });
         Ext.state.Manager.setProvider(new Ext.state.CookieProvider({

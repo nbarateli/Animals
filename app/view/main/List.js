@@ -27,7 +27,7 @@ Ext.define('Animals.view.main.List', {
 
     title: 'Species',
 
-    store: 'species',
+    store: 'speciesdata',
 
     columns: [
         {

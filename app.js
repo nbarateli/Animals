@@ -22,7 +22,7 @@ Ext.application({
 
     name: 'Animals',
     launch: () => {
-        species = Ext.data.StoreManager.lookup('species');
+        species = Ext.data.StoreManager.lookup('speciesdata');
         mun = Ext.data.StoreManager.lookup('municipalities');
         // console.log(data)
 

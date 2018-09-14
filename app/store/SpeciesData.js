@@ -3,8 +3,8 @@ Ext.create('Ext.data.Store', {
 
     alias: 'store.personnel',
     autoload: true,
-    model: 'Animals.model.Species',
-    storeId: 'species',
+    model: 'Animals.model.SpeciesData',
+    storeId: 'speciesdata',
     data: {
         items: [
             {

@@ -8,8 +8,8 @@ Ext.define('Animals.view.main.MainController', {
     alias: 'controller.main',
 
     onItemSelected: function (sender, record) {
-        let species = Ext.data.StoreManager.lookup('species');
-        let panel = Ext.create('Animals.view.main.SpeciesForm', {
+        let species = Ext.data.StoreManager.lookup('speciesdata');
+        let panel = Ext.create('Animals.view.main.SpeciesDataForm', {
             title: 'შეცვლა',
             viewModel: {
                 type: 'species',
@@ -39,13 +39,14 @@ Ext.define('Animals.view.main.MainController', {
         e.findParentByType('grid').filters.clearFilters();
     },
     onAddItem: function (sender, record) {
-        let species = Ext.data.StoreManager.lookup('species');
-        let newItem = Ext.create('Animals.model.Species');
+        let species = Ext.data.StoreManager.lookup('speciesdata');
+        let newItem = Ext.create('Animals.model.SpeciesData');
         let panel =
-            Ext.create('Animals.view.main.SpeciesForm', {
+            Ext.create('Animals.view.main.SpeciesDataForm', {
                 title: 'დამატება',
                 viewModel: {
-                    type: 'species', data: {
+                    type: 'species',
+                    data: {
                         species: newItem
                     }
                 }, saveHandler: function (e) {
@@ -63,7 +64,7 @@ Ext.define('Animals.view.main.MainController', {
 
     },
     onRemoveItem: function (e) {
-        let species = Ext.data.StoreManager.lookup('species');
+        let species = Ext.data.StoreManager.lookup('speciesdata');
         let item = e.up('panel').selection;
         if (item !== null) {
             Ext.Msg.confirm('ყურადღება', 'ნამდვილად გსურთ ამ მონაცემის წაშლა?', () => {
