@@ -161,11 +161,7 @@ Ext.define('Animals.Application', {
             storeId: 'municipalities'
         });
 
-        Ext.create('Ext.data.Store', {
-            requires: ['Ext.data.field.Date', 'Ext.data.proxy.LocalStorage'],
-            pageSize: 14,
-            alias: 'store.speciesdata',
-            model: 'Animals.model.SpeciesData',
+        Ext.create('Animals.store.SpeciesData', {
             storeId: 'speciesdata',
             data: processItems(data.items, mun),
         });
