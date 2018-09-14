@@ -1,4 +1,4 @@
-Ext.define('Animals.model.species.Source', {
+Ext.define('Animals.model.Source', {
     extend: 'Ext.data.Model',
 
     fields: [

@@ -9,8 +9,5 @@ Ext.define('Animals.store.Municipalities', {
         reader: {
             type: 'json'
         }
-    },
-    // load: function (e) {
-    //     console.log(e)
-    // }
+    }
 });
