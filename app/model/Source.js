@@ -3,8 +3,8 @@ Ext.define('Animals.model.species.Source', {
 
     fields: [
         {name: 'id', type: 'int'},
-        //array of multilang field
-        {name: 'name', type: 'auto'},
+        {name: 'name_KA', type: 'string'},
+        {name: 'name_EN', type: 'string'},
         {name: 'attached_document', type: 'string'}
     ],
 });
