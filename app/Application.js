@@ -178,7 +178,6 @@ data = {
 
 function processItems(items, mun, spec) {
   items.map(item => {
-    console.log(item)
     item.municipality = mun.getAt(item.municipality - 1)
     item.species = spec.getAt(item.species - 1);
   });
