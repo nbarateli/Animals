@@ -4,6 +4,8 @@
  * initialization details.
  */
 let BLANK_FUNCTION = (e, i) => '';
+let getFileName = s => s.substring(/\\[^\\]*$/.exec(s).index + 1);
+
 data = {
   municipalities: [
     {name_KA: 'თბილისი', name_EN: 'Tbilisi', id: 1},

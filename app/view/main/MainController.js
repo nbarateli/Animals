@@ -2,6 +2,7 @@
  * This class is the controller for the main view for the application. It is specified as
  * the "controller" of the Main view class.
  */
+
 Ext.define('Animals.view.main.MainController', {
   extend: 'Ext.app.ViewController',
 
@@ -10,10 +11,10 @@ Ext.define('Animals.view.main.MainController', {
 
     let panel = Ext.create('Animals.view.main.BilingualEntryForm', {
       renderTo: parent,
-      title: 'შეცვლა',
+      title: 'დამატება',
       model: options.model,
       viewModel: {
-        // type: 'species',
+
         data: {
           model: options.modelData
         }
@@ -23,15 +24,22 @@ Ext.define('Animals.view.main.MainController', {
         save: function (e) {
           var form = e.up('form').getForm();
           if (form.isValid()) {
-            debugger
+            console.log(options)
             options.store.add(options.modelData)
-            // options.store.sync();
+            options.store.sync();
             panel.destroy();
           }
         }
       }
     });
-    panel.setZIndex(1000)
+
+    panel.setZIndex(1000);
+    options.additionalFields = options.additionalFields || [];
+    options.additionalFields.map(itm => {
+      let a = panel.add(itm);
+      panel.setHeight(panel.getHeight() + a.getHeight());
+    });
+
   },
   onItemSelected: function (sender, record) {
     let species = Ext.data.StoreManager.lookup('speciesdata');
@@ -98,10 +106,36 @@ Ext.define('Animals.view.main.MainController', {
                 model: 'Animals.model.Species', modelData: species,
                 store: Ext.data.StoreManager.lookup('species')
               })
-          }
+          },
+          editSpecies: BLANK_FUNCTION,
+          addMunicipality: () => {
+            let municipality = Ext.create('Animals.model.Municipality', {name_KA: '', name_EN: ''});
+            this.addBilingualItem(
+              panel.body, {
+                model: 'Animals.model.Municipality', modelData: municipality,
+                store: Ext.data.StoreManager.lookup('municipalities')
+              })
+          },
+          editMunicipality: BLANK_FUNCTION,
+          addSource: () => {
+            let source = Ext.create('Animals.model.Source', {name_KA: '', name_EN: ''});
+            console.log(source)
+            this.addBilingualItem(
+              panel.body, {
+                model: 'Animals.model.Source', modelData: source,
+                store: Ext.data.StoreManager.lookup('sources'),
+                additionalFields: [{
+                  xtype: 'filefield',
+                  fieldLabel: 'მიბმული დოკუმენტი',
+                  name: 'name',
+                  bind: '{model.attached_document}',
+                  listeners: {change: console.log}
+                }]
+              })
+          },
+          editSource: BLANK_FUNCTION
         }
       });
-
   },
   onRemoveItem: function (e) {
     let species = Ext.data.StoreManager.lookup('speciesdata');
