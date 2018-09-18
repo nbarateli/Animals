@@ -3,6 +3,7 @@
  * calls Ext.application(). This is the ideal place to handle application launch and
  * initialization details.
  */
+let BLANK_FUNCTION = (e, i) => '';
 data = {
   municipalities: [
     {name_KA: 'თბილისი', name_EN: 'Tbilisi', id: 1},

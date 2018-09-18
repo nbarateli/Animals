@@ -13,7 +13,15 @@ Ext.define('Animals.view.main.SpeciesDataForm',
     defaultType: 'textfield',
     model: 'Animals.model.SpeciesData',
     modelValidation: true,
-    saveHandler: (e, i) => '',
+    handlers: {
+      save: BLANK_FUNCTION,
+      addSpecies: BLANK_FUNCTION,
+      editSpecies: BLANK_FUNCTION,
+      addMunicipality: BLANK_FUNCTION,
+      editMunicipality: BLANK_FUNCTION,
+      addSource: BLANK_FUNCTION,
+      editSource: BLANK_FUNCTION
+    },
 
     defaults: {
       xtype: 'textfield',
@@ -36,12 +44,12 @@ Ext.define('Animals.view.main.SpeciesDataForm',
           xtype: 'button',
           iconCls: 'x-fa fa-edit',
           tooltip: 'Edit current item',
-          handler: 'onAddItem'
+          handler: (e, i) => (e.up('form').handlers.editSpecies || BLANK_FUNCTION)(e, i)
         }, {
           xtype: 'button',
           iconCls: 'x-fa fa-plus',
           tooltip: 'Add a new item to the store',
-          handler: 'onAddItem'
+          handler: (e, i) => (e.up('form').handlers.addSpecies || BLANK_FUNCTION)(e, i)
         }]
       }, {
         xtype: 'container',
@@ -79,12 +87,12 @@ Ext.define('Animals.view.main.SpeciesDataForm',
           xtype: 'button',
           iconCls: 'x-fa fa-edit',
           tooltip: 'Edit current item',
-          handler: 'onAddItem'
+          handler: (e, i) => (e.up('form').handlers.editMunicipality || BLANK_FUNCTION)(e, i)
         }, {
           xtype: 'button',
           iconCls: 'x-fa fa-plus',
           tooltip: 'Add a new item to the store',
-          handler: 'onAddItem'
+          handler: (e, i) => (e.up('form').handlers.addMunicipality || BLANK_FUNCTION)(e, i)
         }]
       }, {
         xtype: 'container',
@@ -93,12 +101,12 @@ Ext.define('Animals.view.main.SpeciesDataForm',
           xtype: 'button',
           iconCls: 'x-fa fa-edit',
           tooltip: 'Edit current item',
-          handler: 'onAddItem'
+          handler: (e, i) => (e.up('form').handlers.editSource || BLANK_FUNCTION)(e, i)
         }, {
           xtype: 'button',
           iconCls: 'x-fa fa-plus',
           tooltip: 'Add a new item to the storeZz',
-          handler: 'onAddItem'
+          handler: (e, i) => (e.up('form').handlers.addSource || BLANK_FUNCTION)(e, i)
         }]
       }]
     ,
@@ -112,7 +120,7 @@ Ext.define('Animals.view.main.SpeciesDataForm',
       text: 'შენახვა',
       formBind: true, //only enabled once the form is valid
       disabled: true,
-      handler: (e, i) => e.up('form').saveHandler(e, i)
+      handler: (e, i) => (e.up('form').handlers.save || BLANK_FUNCTION)(e, i)
     }
     ],
   });
