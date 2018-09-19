@@ -30,12 +30,12 @@ Ext.define('Animals.view.main.BilingualEntryForm',
     items: [{
       xtype: 'textfield',
       fieldLabel: 'სახელი (KA)',
-      name: 'name',
+      name: 'name_ka',
       bind: '{model.name_KA}'
     }, {
       xtype: 'textfield',
       fieldLabel: 'სახელი (EN)',
-      name: 'name',
+      name: 'name_en',
       bind: '{model.name_EN}'
     }]
     ,

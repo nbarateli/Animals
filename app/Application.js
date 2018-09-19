@@ -42,19 +42,92 @@ data = {
       name_KA: 'ბრიყვი',
       name_EN: 'fool'
     }],
-  items: [
+  sources: [{
+    id: 1,
+    name_KA: 'წყაროების წყარო',
+    name_EN: 'The source to end all sources',
+    attached_document: 'source.jpg'
+  },
     {
-      name_KA: 'მგელი',
-      name_EN: 'Wolf',
-      species: 1,
-      date: 'Fri Jun 12 2015 00:00:00 GMT+0400 (Georgia Standard Time)',
-      population: 2456,
-      municipality: 1,
-      source_name_KA: 'წყაროების წყარო',
-      source_name_EN: 'The source to end all sources',
-      source_attached_document: 'source.jpg',
-      id: 1
-    }, {
+      id: 2,
+      name_KA: 'ჩემი ძმაკანა ტოო',
+      name_EN: 'My Dzmakana',
+      attached_document: 'source.jpg'
+    },
+    {
+      id: 3,
+      name_KA: 'თერიბლ',
+      name_EN: 'Terrible',
+      attached_document: 'source.jpg'
+    },
+    {
+      id: 4,
+      name_KA: 'ჯიგარი სორსი',
+      name_EN: 'Jigar sauce',
+      attached_document: 'source.jpg'
+    },
+    {
+      id: 5,
+      name_KA: 'ლომპორტი',
+      name_EN: 'Lion\'s Den',
+      attached_document: 'source.jpg'
+    },
+    {
+      id: 6,
+      name_KA: 'წავიდა გულავი',
+      name_EN: 'Tsavi & gulavi',
+      attached_document: 'source.jpg'
+    },
+    {
+      id: 7,
+      name_KA: 'სენაკი სითი ლაიფ',
+      name_EN: 'West side',
+      attached_document: 'source.jpg'
+    },
+    {
+      id: 8,
+      name_KA: 'დადიანის მენიუ',
+      name_EN: 'menu of the restaurant Dadiani',
+      attached_document: 'source.jpg'
+    },
+    {
+      id: 9,
+      name_KA: 'ჰან სოლო',
+      name_EN: 'dies in force awakens',
+      attached_document: 'source.jpg'
+    },
+    {
+      id: 10,
+      name_KA: 'ეჰ',
+      name_EN: 'eh',
+      attached_document: 'source.jpg'
+    },
+    {
+      id: 11,
+      name_KA: 'ასე ჯობია',
+      name_EN: 'a lance through',
+      attached_document: 'source.jpg'
+    },
+    {
+      id: 12,
+      name_KA: 'თაბლე',
+      name_EN: 'Table',
+      attached_document: 'source.jpg'
+    }],
+  items: [{
+    name_KA: 'მგელი',
+    name_EN: 'Wolf',
+    species: 1,
+    date: 'Fri Jun 12 2015 00:00:00 GMT+0400 (Georgia Standard Time)',
+    population: 2456,
+    municipality: 1,
+    source_name_KA: 'წყაროების წყარო',
+    source_name_EN: 'The source to end all sources',
+    source_attached_document: 'source.jpg',
+    id: 1,
+    source: 1
+  },
+    {
       name_KA: 'ვეფხვი',
       name_EN: 'Tiger',
       species: 2,
@@ -64,8 +137,10 @@ data = {
       source_name_KA: 'ჩემი ძმაკანა ტოო',
       source_name_EN: 'My Dzmakana',
       source_attached_document: 'source.jpg',
-      id: 2
-    }, {
+      id: 2,
+      source: 2
+    },
+    {
       name_KA: 'ნიყვი',
       name_EN: 'Ceasar\'s shroomz',
       species: 3,
@@ -75,8 +150,10 @@ data = {
       source_name_KA: 'თერიბლ',
       source_name_EN: 'Terrible',
       source_attached_document: 'source.jpg',
-      id: 3
-    }, {
+      id: 3,
+      source: 3
+    },
+    {
       name_KA: 'ციყვი',
       name_EN: 'Squirrel',
       species: 4,
@@ -86,8 +163,10 @@ data = {
       source_name_KA: 'ჯიგარი სორსი',
       source_name_EN: 'Jigar sauce',
       source_attached_document: 'source.jpg',
-      id: 4
-    }, {
+      id: 4,
+      source: 4
+    },
+    {
       name_KA: 'ლომი',
       name_EN: 'Lion',
       species: 5,
@@ -97,8 +176,10 @@ data = {
       source_name_KA: 'ლომპორტი',
       source_name_EN: 'Lion\'s Den',
       source_attached_document: 'source.jpg',
-      id: 5
-    }, {
+      id: 5,
+      source: 5
+    },
+    {
       name_KA: 'წავი',
       name_EN: 'el tsavo',
       species: 6,
@@ -108,8 +189,10 @@ data = {
       source_name_KA: 'წავიდა გულავი',
       source_name_EN: 'Tsavi & gulavi',
       source_attached_document: 'source.jpg',
-      id: 6
-    }, {
+      id: 6,
+      source: 6
+    },
+    {
       name_KA: 'ირემი',
       name_EN: 'Deer',
       species: 7,
@@ -119,8 +202,10 @@ data = {
       source_name_KA: 'სენაკი სითი ლაიფ',
       source_name_EN: 'West side',
       source_attached_document: 'source.jpg',
-      id: 7
-    }, {
+      id: 7,
+      source: 7
+    },
+    {
       name_KA: 'ელარჯი',
       name_EN: 'Elarji',
       species: 8,
@@ -130,8 +215,10 @@ data = {
       source_name_KA: 'დადიანის მენიუ',
       source_name_EN: 'menu of the restaurant Dadiani',
       source_attached_document: 'source.jpg',
-      id: 8
-    }, {
+      id: 8,
+      source: 8
+    },
+    {
       name_KA: 'ავაზა',
       name_EN: 'Panther',
       species: 9,
@@ -141,8 +228,10 @@ data = {
       source_name_KA: 'ჰან სოლო',
       source_name_EN: 'dies in force awakens',
       source_attached_document: 'source.jpg',
-      id: 9
-    }, {
+      id: 9,
+      source: 9
+    },
+    {
       name_KA: 'ჯიქი',
       name_EN: 'Snow Leopard',
       species: 10,
@@ -152,8 +241,10 @@ data = {
       source_name_KA: 'ეჰ',
       source_name_EN: 'eh',
       source_attached_document: 'source.jpg',
-      id: 10
-    }, {
+      id: 10,
+      source: 10
+    },
+    {
       name_KA: 'ჯიქი',
       name_EN: 'Snow Leopard',
       species: 10,
@@ -163,8 +254,10 @@ data = {
       source_name_KA: 'ასე ჯობია',
       source_name_EN: 'a lance through',
       source_attached_document: 'source.jpg',
-      id: 11
-    }, {
+      id: 11,
+      source: 11
+    },
+    {
       name_KA: 'ბრიყვი',
       name_EN: 'fool',
       species: 12,
@@ -174,10 +267,14 @@ data = {
       source_name_KA: 'თაბლე',
       source_name_EN: 'Table',
       source_attached_document: 'source.jpg',
-      id: 12
-    },]
+      id: 12,
+      source: 12
+    }]
 }
-
+nameRenderer = (val, el, entry, store) => {
+  if (typeof  val === "number") val = Ext.data.StoreManager.lookup(store).getAt(val - 1);
+  return `${val.data.name_KA}\t• ${val.data.name_EN}`
+}
 
 function processItems(items, mun, spec) {
   items.map(item => {
@@ -205,13 +302,14 @@ Ext.define('Animals.Application', {
     });
 
     let species = Ext.create('Animals.store.Species', {data: data.species, storeId: 'species'});
-
+    let sources = Ext.create('Animals.store.Sources', {data: data.sources, storeId: 'sources'})
     Ext.create('Animals.store.SpeciesData', {
       storeId: 'speciesdata',
       data: ((items, mun, spec) => {
         items.map(item => {
           item.municipality = mun.getAt(item.municipality - 1)
           item.species = spec.getAt(item.species - 1);
+          item.source = sources.getAt(item.source - 1)
         });
         return items;
       })(data.items, mun, species),

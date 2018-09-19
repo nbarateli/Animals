@@ -38,8 +38,8 @@ Ext.define('Animals.view.main.SpeciesDataForm',
           displayField: 'name_KA',
           valueField: 'id',
           fieldLabel: 'სახეობა',
-          name: 'name',
-          bind: '{species.name_KA}'
+          name: 'species',
+          bind: '{species.species}'
         }, {
           xtype: 'button',
           iconCls: 'x-fa fa-edit',
@@ -97,16 +97,24 @@ Ext.define('Animals.view.main.SpeciesDataForm',
       }, {
         xtype: 'container',
         layout: 'hbox',
-        items: [{fieldLabel: 'წყარო', name: 'source_name', bind: '{species.source_name_KA}'}, {
+        items: [{
+          xtype: 'combobox',
+          store: 'sources',
+          fieldLabel: 'წყარო',
+          displayField: 'name_KA',
+          valueField: 'id',
+          name: 'source',
+          bind: '{species.source}'
+        }, {
           xtype: 'button',
           iconCls: 'x-fa fa-edit',
           tooltip: 'Edit current item',
-          handler: (e, i) => (e.up('form').handlers.editSource || BLANK_FUNCTION)(e, i)
+          handler: (e, i) => (e.up('form').handlers.editMunicipality || BLANK_FUNCTION)(e, i)
         }, {
           xtype: 'button',
           iconCls: 'x-fa fa-plus',
-          tooltip: 'Add a new item to the storeZz',
-          handler: (e, i) => (e.up('form').handlers.addSource || BLANK_FUNCTION)(e, i)
+          tooltip: 'Add a new item to the store',
+          handler: (e, i) => (e.up('form').handlers.addMunicipality || BLANK_FUNCTION)(e, i)
         }]
       }]
     ,
