@@ -24,12 +24,11 @@ Ext.define('Animals.view.main.MainController', {
         save: function (e) {
           var form = e.up('form').getForm();
           if (form.isValid()) {
-            console.log(options)
+//console.log(options)
             if (!editEntry)
               options.store.add(options.modelData)
             // options.store.sync();
-
-            console.log(options)
+//console.log(options)
             panel.destroy();
           }
         }
@@ -46,7 +45,7 @@ Ext.define('Animals.view.main.MainController', {
   },
   onItemSelected: function (sender, record) {
     let species = Ext.data.StoreManager.lookup('speciesdata');
-    console.log(record)
+//console.log(record)
     let panel = Ext.create('Animals.view.main.SpeciesDataForm',
       {
         title: 'შეცვლა',
@@ -110,7 +109,7 @@ Ext.define('Animals.view.main.MainController', {
           editMunicipality: () => this.processEntry(panel.getForm().findField('municipality').getModelData(), 'Animals.model.Municipality', 'municipalities', panel, this.processBilingualItem),
           addSource: () => this.processSource(false, panel, this.processBilingualItem),
           editSource: () => {
-            console.log(panel);
+//console.log(panel);
 
             this.processSource(panel.getForm().findField('source').getModelData(), panel, this.processBilingualItem)
           }

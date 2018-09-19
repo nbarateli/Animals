@@ -70,7 +70,7 @@ Ext.define('Animals.view.main.List', {
       dataIndex: 'source',
       flex: 2,
       renderer: (val, elem, entry) => {
-        if (typeof  val === "number") val = Ext.data.StoreManager.lookup(store).getAt(val - 1);
+        if (typeof  val === "number") val = Ext.data.StoreManager.lookup('sources').findBy(id => id === val);
         return `<a target="_blank" href='${val.data.attached_document}'>${val.data.name_KA}</a> \t• <a target="_blank" href='${val.data.attached_document}'>${val.data.name_EN}</a>`
       },
       sortable: true,

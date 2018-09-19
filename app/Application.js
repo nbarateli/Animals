@@ -260,7 +260,7 @@ data = {
     {
       name_KA: 'ბრიყვი',
       name_EN: 'fool',
-      species: 12,
+      species: 11,
       date: 'Fri Jun 12 2015 00:00:00 GMT+0400 (Georgia Standard Time)',
       population: 9856,
       municipality: 1,
@@ -272,11 +272,20 @@ data = {
     }]
 }
 nameRenderer = (val, el, entry, store) => {
-  if (typeof  val === "number") val = Ext.data.StoreManager.lookup(store).getAt(val - 1);
+  oldval = val;
+  store = Ext.data.StoreManager.lookup(store);
+
+  if (typeof  val === "number") val = store.getAt(store.findBy((el, id) => id === val));
+  if (val === null) {
+    // console.log(oldval);
+    debugger
+  }
+
   return `${val.data.name_KA}\t• ${val.data.name_EN}`
 }
 
 function processItems(items, mun, spec) {
+  // console.log(items)
   items.map(item => {
     item.municipality = mun.getAt(item.municipality - 1)
     item.species = spec.getAt(item.species - 1);
