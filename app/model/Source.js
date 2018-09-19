@@ -1,10 +1,10 @@
 Ext.define('Animals.model.Source', {
-    extend: 'Ext.data.Model',
+  extend: 'Ext.data.Model',
 
-    fields: [
-        {name: 'id', type: 'int'},
-        {name: 'name_KA', type: 'string'},
-        {name: 'name_EN', type: 'string'},
-        {name: 'attached_document', type: 'string'}
-    ],
+  fields: [
+    {name: 'id', type: 'int'},
+    {name: 'name_KA', type: 'string'},
+    {name: 'name_EN', type: 'string'},
+    {name: 'attached_document', type: 'string'}
+  ]
 });

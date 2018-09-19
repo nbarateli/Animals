@@ -5,5 +5,5 @@ Ext.define('Animals.store.SpeciesData', {
     model: 'Animals.model.SpeciesData',
     storeId: 'speciesdata',
     requires: ['Ext.data.field.Date', 'Ext.data.proxy.LocalStorage'],
-    pageSize: 14
+  pageSize: 5
 });

@@ -8,18 +8,23 @@ Ext.define('Animals.view.main.List', {
   xtype: 'mainlist',
   minHeight: window.innerHeight * 0.65,
   tbar: [{
-    text: '+',
+    iconCls: 'x-fa fa-plus',
     tooltip: 'Add a new item to the store',
     handler: 'onAddItem'
   }, {
-    text: '-',
+    iconCls: 'x-fa fa-minus',
     tooltip: 'Remove the selected item from the store',
     handler: 'onRemoveItem'
   }, {
-    text: 'Clear Filters',
-    tooltip: 'Clear all filters',
-    handler: 'onClearFilters'
-  }],
+    iconCls: 'x-fa fa-edit',
+    tooltip: 'Edit the selected item',
+    handler: 'onEditItem'
+  },
+    {
+      text: 'Clear Filters',
+      tooltip: 'Clear all filters',
+      handler: 'onClearFilters'
+    }],
   requires: [
     'Ext.data.Store',
     'Ext.toolbar.Paging',

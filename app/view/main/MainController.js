@@ -43,6 +43,11 @@ Ext.define('Animals.view.main.MainController', {
     });
 
   },
+  onEditItem: function (e) {
+    let species = Ext.data.StoreManager.lookup('speciesdata');
+    let item = e.up('panel').selection;
+    if (item !== null) this.onItemSelected({}, item)
+  },
   onItemSelected: function (sender, record) {
     let species = Ext.data.StoreManager.lookup('speciesdata');
 //console.log(record)
@@ -64,10 +69,16 @@ Ext.define('Animals.view.main.MainController', {
               panel.destroy();
             }
           },
-          addSpecies: () => {
 
-            (this.processBilingualItem({model: source}))
-          }
+          addSpecies: () => this.processEntry(false, 'Animals.model.Species', 'species', panel, this.processBilingualItem),
+          editSpecies: () => this.processEntry(panel.getForm().findField('species').getModelData(),
+            'Animals.model.Species', 'species', panel, this.processBilingualItem),
+          addMunicipality: () => this.processEntry(false, 'Animals.model.Municipality', 'municipalities', panel, this.processBilingualItem),
+          editMunicipality: () => this.processEntry(panel.getForm().findField('municipality').getModelData(), 'Animals.model.Municipality', 'municipalities', panel, this.processBilingualItem),
+          addSource: () => this.processSource(false, panel, this.processBilingualItem),
+          editSource: () =>
+            this.processSource(panel.getForm().findField('source').getModelData(), panel, this.processBilingualItem)
+
         }
       });
 
@@ -108,11 +119,9 @@ Ext.define('Animals.view.main.MainController', {
           addMunicipality: () => this.processEntry(false, 'Animals.model.Municipality', 'municipalities', panel, this.processBilingualItem),
           editMunicipality: () => this.processEntry(panel.getForm().findField('municipality').getModelData(), 'Animals.model.Municipality', 'municipalities', panel, this.processBilingualItem),
           addSource: () => this.processSource(false, panel, this.processBilingualItem),
-          editSource: () => {
-//console.log(panel);
-
+          editSource: () =>
             this.processSource(panel.getForm().findField('source').getModelData(), panel, this.processBilingualItem)
-          }
+
         }
       });
     // console.log(panel)
