@@ -1,3 +1,21 @@
+function processItem(item) {
+  let mun = Ext.data.StoreManager.lookup('municipalities'),
+    spec = Ext.data.StoreManager.lookup('species'),
+    sources = Ext.data.StoreManager.lookup('sources');
+
+  item.municipality = item.get('municipality').id === undefined ?
+    mun.getAt(mun.findBy((rec, id) => id === item.get('municipality')))
+    : item.get('municipality');
+  item.species = item.get('species').id === undefined ?
+    spec.getAt(spec.findBy((rec, id) => id === item.get('species')))
+    : item.get('species');
+  item.source = item.get('source').id === undefined ?
+    sources.getAt(sources.findBy((rec, id) => id === item.get('source')))
+    : item.get('source')
+
+  return item;
+}
+
 /**
  * This class is the controller for the main view for the application. It is specified as
  * the "controller" of the Main view class.
@@ -108,7 +126,7 @@ Ext.define('Animals.view.main.MainController', {
           save: function (e) {
             var form = e.up('form').getForm();
             if (form.isValid()) {
-              speciesData.add(newItem)
+              speciesData.add(processItem(newItem))
               speciesData.sync();
               panel.destroy();
             }
@@ -164,7 +182,8 @@ Ext.define('Animals.view.main.MainController', {
   },
   onRemoveItem:
 
-    function (e) {
+    function (e, i, a) {
+
       let species = Ext.data.StoreManager.lookup('speciesdata');
       let item = e.up('panel').selection;
       if (item !== null) {

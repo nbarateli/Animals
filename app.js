@@ -24,12 +24,11 @@ Ext.application({
   launch: () => {
     speciesData = Ext.data.StoreManager.lookup('speciesdata');
     mun = Ext.data.StoreManager.lookup('municipalities');
-    // console.log(data)
 
     (speciesData.proxy.type === "localstorage" && window.localStorage.initialEntry === undefined) ? (() => {
       data.municipalities.map(e => {
         mun.add(e)
-      })
+      });
       // processItems(data.items, mun);
       data.items.map(e => {
         speciesData.add(e)

@@ -1,12 +1,12 @@
 /**
  * This view is an example list of people.
  */
-
+let args;
 Ext.define('Animals.view.main.List', {
 
   extend: 'Ext.grid.Panel',
   xtype: 'mainlist',
-  minHeight: window.innerHeight * 0.65,
+  minHeight: window.innerHeight * 0.79,
   tbar: [{
     iconCls: 'x-fa fa-plus',
     tooltip: 'Add a new item to the store',
@@ -32,9 +32,7 @@ Ext.define('Animals.view.main.List', {
   ],
 
   title: 'Species',
-
-  store: 'speciesdata',
-
+  bind: '{speciesdata}',
   columns: [
     {
       text: 'Name', flex: 2,
@@ -75,7 +73,8 @@ Ext.define('Animals.view.main.List', {
       dataIndex: 'source',
       flex: 2,
       renderer: (val, elem, entry) => {
-        if (typeof  val === "number") val = Ext.data.StoreManager.lookup('sources').findBy(id => id === val);
+        let sources = Ext.data.StoreManager.lookup('sources');
+        if (typeof  val === "number") val = sources.getAt(sources.findBy((rec, id) => id === val));
         return `<a target="_blank" href='${val.data.attached_document}'>${val.data.name_KA}</a> \t• <a target="_blank" href='${val.data.attached_document}'>${val.data.name_EN}</a>`
       },
       sortable: true,
@@ -115,10 +114,14 @@ Ext.define('Animals.view.main.List', {
       });
 
       loadingMask.show();
-      setInterval(() => panel.store.load((records, operation, success) => {
+      setTimeout(() => {
+        console.log(panel)
 
-        loadingMask.hide();
-      }), 200)//only for testing
+        panel.store.load((records, operation, success) => {
+
+          loadingMask.hide();
+        })
+      }, 200)//only for testing
     }
   },
   plugins: 'gridfilters'
