@@ -1,6 +1,10 @@
 Ext.define('Animals.model.Base', {
   extend: 'Ext.data.Model',
 
+  fields: [
+    {name: 'id', type: 'int'},
+    'name_KA', 'name_EN'
+  ],
   schema: {
     namespace: 'Animals.model'
   },

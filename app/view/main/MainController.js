@@ -127,6 +127,7 @@ Ext.define('Animals.view.main.MainController', {
             var form = e.up('form').getForm();
             if (form.isValid()) {
               speciesData.add(processItem(newItem))
+              debugger
               speciesData.sync();
               panel.destroy();
             }
@@ -189,7 +190,7 @@ Ext.define('Animals.view.main.MainController', {
       if (item !== null) {
         Ext.Msg.confirm('ყურადღება', 'ნამდვილად გსურთ ამ მონაცემის წაშლა?', () => {
           species.remove(item);
-          species.sync({failure: () => console.log('oeee')});
+          species.sync();
 
           Ext.Msg.alert('successfully removed');
         })

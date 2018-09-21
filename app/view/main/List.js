@@ -7,6 +7,7 @@ Ext.define('Animals.view.main.List', {
   extend: 'Ext.grid.Panel',
   xtype: 'mainlist',
   minHeight: window.innerHeight * 0.85,
+  minWidth: window.innerWidth * .8,
   tbar: [{
     iconCls: 'x-fa fa-plus',
     tooltip: 'Add a new item to the store',
@@ -57,7 +58,8 @@ Ext.define('Animals.view.main.List', {
     },
     {
       text: 'Population', dataIndex: 'population',
-      flex: 0.75, sortable: true, filter: 'number'
+      flex: 0.75, sortable: true,
+      filter: 'number'
     },
     {
       text: 'Municipality', dataIndex: 'municipality', flex: 2,

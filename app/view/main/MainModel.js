@@ -2,41 +2,100 @@
  * This class is the view model for the Main view of the application.
  */
 data = {
-  municipalities: [
-    {name_KA: 'თბილისი', name_EN: 'Tbilisi', id: 1},
-    {name_KA: 'ქუთაისი', name_EN: 'Kutaisi', id: 2},
-    {name_KA: 'ლანჩხუთი', name_EN: 'Lunchfive', id: 3},
-    {name_KA: 'მანგლისი', name_EN: 'Manglease', id: 4},
-    {name_KA: 'ზუგდიდი', name_EN: 'Zugdidi', id: 5},
-    {name_KA: 'ვაკანდა', name_EN: 'Wakanda', id: 6},
-    {name_KA: 'ჩოხატაური', name_EN: 'Chokhatauri', id: 7},
-    {name_KA: 'ფაბრიკა', name_EN: 'Fabrika', id: 8},
+  municipalities: [{
+    name_KA: 'თბილისი',
+    name_EN: 'Tbilisi',
+    id: 1
+  },
+    {
+      name_KA: 'ქუთაისი',
+      name_EN: 'Kutaisi',
+      id: 2
+    },
+    {
+      name_KA: 'ლანჩხუთი',
+      name_EN: 'Lunchfive',
+      id: 3
+    },
+    {
+      name_KA: 'მანგლისი',
+      name_EN: 'Manglease',
+      id: 4
+    },
+    {
+      name_KA: 'ზუგდიდი',
+      name_EN: 'Zugdidi',
+      id: 5
+    },
+    {
+      name_KA: 'ვაკანდა',
+      name_EN: 'Wakanda',
+      id: 6
+    },
+    {
+      name_KA: 'ჩოხატაური',
+      name_EN: 'Chokhatauri',
+      id: 7
+    },
+    {
+      name_KA: 'ფაბრიკა',
+      name_EN: 'Fabrika',
+      id: 8
+    },
   ],
-  species: [
-    {id: 1, name_KA: 'მგელი', name_EN: 'Wolf'},
-    {id: 2, name_KA: 'ვეფხვი', name_EN: 'Tiger'},
+  species: [{
+    id: 1,
+    name_KA: 'მგელი',
+    name_EN: 'Wolf'
+  },
+    {
+      id: 2,
+      name_KA: 'ვეფხვი',
+      name_EN: 'Tiger'
+    },
     {
       id: 3,
       name_KA: 'ნიყვი',
       name_EN: 'Ceasar\'s shroomz'
     },
-    {id: 4, name_KA: 'ციყვი', name_EN: 'Squirrel'},
-    {id: 5, name_KA: 'ლომი', name_EN: 'Lion'}, {
+    {
+      id: 4,
+      name_KA: 'ციყვი',
+      name_EN: 'Squirrel'
+    },
+    {
+      id: 5,
+      name_KA: 'ლომი',
+      name_EN: 'Lion'
+    }, {
       id: 6,
       name_KA: 'წავი',
       name_EN: 'el tsavo'
     },
-    {id: 7, name_KA: 'ირემი', name_EN: 'Deer'},
-    {id: 8, name_KA: 'ელარჯი', name_EN: 'Elarji'}, {
+    {
+      id: 7,
+      name_KA: 'ირემი',
+      name_EN: 'Deer'
+    },
+    {
+      id: 8,
+      name_KA: 'ელარჯი',
+      name_EN: 'Elarji'
+    }, {
       id: 9,
       name_KA: 'ავაზა',
       name_EN: 'Panther'
     },
-    {id: 10, name_KA: 'ჯიქი', name_EN: 'Snow Leopard'}, {
+    {
+      id: 10,
+      name_KA: 'ჯიქი',
+      name_EN: 'Snow Leopard'
+    }, {
       id: 11,
       name_KA: 'ბრიყვი',
       name_EN: 'fool'
-    }],
+    }
+  ],
   sources: [{
     id: 1,
     name_KA: 'წყაროების წყარო',
@@ -108,7 +167,8 @@ data = {
       name_KA: 'თაბლე',
       name_EN: 'Table',
       attached_document: 'source.jpg'
-    }],
+    }
+  ],
   items: [{
     name_KA: 'მგელი',
     name_EN: 'Wolf',
@@ -264,7 +324,8 @@ data = {
       source_attached_document: 'source.jpg',
       id: 12,
       source: 12
-    }]
+    }
+  ]
 }
 
 Ext.define('Animals.view.main.MainModel', {
@@ -272,8 +333,11 @@ Ext.define('Animals.view.main.MainModel', {
 
   alias: 'viewmodel.main',
 
-  stores: {speciesdata: Ext.create('Animals.store.SpeciesData', {data: data.items})},
+  stores: {
+    speciesdata: Ext.create('Animals.store.SpeciesData', {
+      storeId: 'speciesdata', localData: data
+    })
+  },
   // data: {speciesdata: '{speciesdatastore}'}
-//TODO - add data, formulas and/or methods to support your view
-})
-;
+  //TODO - add data, formulas and/or methods to support your view
+});
