@@ -6,3 +6,23 @@ Ext.define('Animals.model.Base', {
   },
   // hasMany: 'Animals.model.SpeciesData'
 });
+Ext.define('Ext.grid.filters.filter.Animals', {
+  extend: 'Ext.grid.filters.filter.String',
+  alias: 'grid.filter.animalsfilter',
+
+  activate: function (showingMenu) {
+    if (showingMenu) {
+      this.activateMenu();
+    } else {
+      let filter = this.filter;
+      let dataIndex = this.dataIndex;
+      this.addStoreFilter(new Ext.util.Filter({
+        filterFn: function (item) {
+          let reg = new RegExp(filter.getValue(), 'gi')
+          return item.get(dataIndex).get('name_KA').match(reg) !== null ||
+            item.get(dataIndex).get('name_EN').match(reg) !== null;
+        }
+      }));
+    }
+  },
+})

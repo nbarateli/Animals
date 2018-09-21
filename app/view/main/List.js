@@ -40,9 +40,10 @@ Ext.define('Animals.view.main.List', {
       renderer: (val, el, entry) => nameRenderer(val, el, entry, 'species'),
       sortable: true,
       filter: {
-        type: 'string',
+        type: 'animalsfilter',
+        dataIndex: 'species',
         itemDefaults: {
-          emptyText: 'Search for... (KA)'
+          emptyText: 'Search for...'
         }
       }
     },
@@ -61,10 +62,13 @@ Ext.define('Animals.view.main.List', {
     {
       text: 'Municipality', dataIndex: 'municipality', flex: 2,
       renderer: (val, el, entry) => nameRenderer(val, el, entry, 'municipalities'),
-      sortable: true, filter: {
-        type: 'string',
+      sortable:
+        true,
+      filter: {
+        dataIndex: 'municipality',
+        type: 'animalsfilter',
         itemDefaults: {
-          emptyText: 'Search for... (KA)'
+          emptyText: 'Search for...'
         }
       }
     },
@@ -79,9 +83,10 @@ Ext.define('Animals.view.main.List', {
       },
       sortable: true,
       filter: {
-        type: 'string',
+        dataIndex: 'source',
+        type: 'sourcefilter',
         itemDefaults: {
-          emptyText: 'Search for... (KA)'
+          emptyText: 'Search for...'
         }
       }
     }
@@ -115,7 +120,6 @@ Ext.define('Animals.view.main.List', {
 
       loadingMask.show();
       setTimeout(() => {
-        console.log(panel)
 
         panel.store.load((records, operation, success) => {
 
