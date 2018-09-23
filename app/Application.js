@@ -13,7 +13,7 @@ nameRenderer = (val, el, entry, store) => {
   if (typeof  val === "number") val = store.getAt(store.findBy((el, id) => id === val));
   if (val === null) {
     // console.log(oldval);
-    debugger
+
   }
 
   return `${val.data.name_KA}\t• ${val.data.name_EN}`

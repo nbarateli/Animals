@@ -164,7 +164,6 @@ Ext.define('Animals.view.main.MainController', {
 
   },
   processSource: (editEntry, panel, processFn) => {
-    debugger;
     this.processEntry(editEntry, panel, 'Animals.model.Source', 'sources',
       (parent, options, editEntry) => {
         processFn(
