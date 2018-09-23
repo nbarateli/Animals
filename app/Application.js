@@ -4,7 +4,10 @@
  * initialization details.
  */
 let BLANK_FUNCTION = (e, i) => '';
-let getFileName = s => s.substring(/\\[^\\]*$/.exec(s).index + 1);
+let getFileName = s => {
+  let result = /\\[^\\]*$/.exec(s)
+  return result ? s.substring(result.index + 1) : s;
+};
 
 nameRenderer = (val, el, entry, store) => {
   oldval = val;
@@ -42,7 +45,10 @@ Ext.define('Animals.Application', {
   init: function () {
     let listeners = {
       add: (store, records) => {
-        records.forEach(record => store.proxy.data.push(record));
+        records.forEach(record => store.proxy.data.push({
+          ...record.data,
+          id: store.proxy.data[store.proxy.data.length - 1].id + 1
+        }));
       },
       remove: (store, records, index, isMove) => {
         if (isMove) return;
@@ -66,8 +72,22 @@ Ext.define('Animals.Application', {
     let sources = Ext.create('Animals.store.Sources', {
       data: data.sources,
       storeId: 'sources',
-      listeners: listeners,
-    })
+      listeners: {
+        ...listeners,
+        add: (store, records) => {
+          records.forEach(record => {
+            record.data.attached_document = getFileName(record.data.attached_document);
+            store.proxy.data.push({
+              ...record.data, id: store.proxy.data[store.proxy.data.length - 1].id + 1
+            })
+          });
+        },
+        update: (store, record) => {
+          record.data.attached_document = getFileName(record.data.attached_document);
+
+        }
+      },
+    });
     speciesData = Ext.data.StoreManager.lookup('speciesdata');
     // console.log(speciesData)
     ((items, mun, spec) => {
@@ -77,18 +97,8 @@ Ext.define('Animals.Application', {
         item.source = sources.getAt(item.source - 1)
       });
       return items;
-    })(data.items, mun, species)
-    // Ext.create('Animals.store.SpeciesData', {
-    //   // storeId: 'speciesdata',
-    //   data: ((items, mun, spec) => {
-    //     items.map(item => {
-    //       item.municipality = mun.getAt(item.municipality - 1)
-    //       item.species = spec.getAt(item.species - 1);
-    //       item.source = sources.getAt(item.source - 1)
-    //     });
-    //     return items;
-    //   })(data.items, mun, species),
-    // });
+    })(data.items, mun, species);
+
     Ext.state.Manager.setProvider(new Ext.state.CookieProvider({
       expires: new Date(Ext.Date.now() + (1000 * 60 * 60 * 24 * 90)) // 90 days
     }));

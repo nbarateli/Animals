@@ -19,8 +19,6 @@ Ext.define('Animals.store.SpeciesData', {
       },
       writer: config.writerConfig ? config.writerConfig : {type: 'json'}
     };
-    // this.setRoot(config.localData)
-    console.log(config.proxy)
     this.callParent(arguments)
   }
 });

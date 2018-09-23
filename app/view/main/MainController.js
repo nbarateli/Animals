@@ -52,12 +52,12 @@ Ext.define('Animals.view.main.MainController', {
         }
       }
     });
-
+    // console.log(options.modelData)
     panel.setZIndex(1000);
     options.additionalFields = options.additionalFields || [];
     options.additionalFields.map(itm => {
       let a = panel.add(itm);
-      panel.setHeight(panel.getHeight() + a.getHeight());
+      panel.setHeight(panel.getHeight() + a.getHeight() + 5);
     });
 
   },
@@ -93,9 +93,9 @@ Ext.define('Animals.view.main.MainController', {
             'Animals.model.Species', 'species', panel, this.processBilingualItem),
           addMunicipality: () => this.processEntry(false, 'Animals.model.Municipality', 'municipalities', panel, this.processBilingualItem),
           editMunicipality: () => this.processEntry(panel.getForm().findField('municipality').getModelData(), 'Animals.model.Municipality', 'municipalities', panel, this.processBilingualItem),
-          addSource: () => this.processSource(false, panel, this.processBilingualItem),
+          addSource: () => this.processSource(false, panel, this.processBilingualItem, this.processEntry),
           editSource: () =>
-            this.processSource(panel.getForm().findField('source').getModelData(), panel, this.processBilingualItem)
+            this.processSource(panel.getForm().findField('source').getModelData(), panel, this.processBilingualItem, this.processEntry)
 
         }
       });
@@ -137,9 +137,9 @@ Ext.define('Animals.view.main.MainController', {
             'Animals.model.Species', 'species', panel, this.processBilingualItem),
           addMunicipality: () => this.processEntry(false, 'Animals.model.Municipality', 'municipalities', panel, this.processBilingualItem),
           editMunicipality: () => this.processEntry(panel.getForm().findField('municipality').getModelData(), 'Animals.model.Municipality', 'municipalities', panel, this.processBilingualItem),
-          addSource: () => this.processSource(false, panel, this.processBilingualItem),
+          addSource: () => this.processSource(false, panel, this.processBilingualItem, this.processEntry),
           editSource: () =>
-            this.processSource(panel.getForm().findField('source').getModelData(), panel, this.processBilingualItem)
+            this.processSource(panel.getForm().findField('source').getModelData(), panel, this.processBilingualItem, this.processEntry)
 
         }
       });
@@ -152,7 +152,7 @@ Ext.define('Animals.view.main.MainController', {
     let store = Ext.data.StoreManager.lookup(storeName);
     editEntry = editEntry ? store.getAt(store.findBy((rec, id) => {
 
-      return id === entryId
+      return typeof editEntry === "number" ? id === editEntry : id === entryId;
     })) : null;
 
     processFn(
@@ -163,19 +163,18 @@ Ext.define('Animals.view.main.MainController', {
       }, editEntry)
 
   },
-  processSource: (editEntry, panel, processFn) => {
-    this.processEntry(editEntry, panel, 'Animals.model.Source', 'sources',
+  processSource: (editEntry, panel, processFn, processEntry) => {
+    processEntry(editEntry, 'Animals.model.Source', 'sources', panel,
       (parent, options, editEntry) => {
         processFn(
           panel.body, {
-            model: options.modelData,
+            modelData: options.modelData,
             store: Ext.data.StoreManager.lookup('sources'),
             additionalFields: [{
               xtype: 'filefield',
               fieldLabel: 'მიბმული დოკუმენტი',
               name: 'name',
-              bind: '{model.attached_document}',
-              listeners: {change: () => false}
+              bind: '{model.attached_document}'
             }]
           }, editEntry)
       })

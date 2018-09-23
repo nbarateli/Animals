@@ -338,7 +338,9 @@ Ext.define('Animals.view.main.MainModel', {
       storeId: 'speciesdata', localData: data,
       listeners: {
         add: (store, records) => {
-          records.forEach(record => store.proxy.data.push(record));
+          records.forEach(record => store.proxy.data.push({
+            ...record.data, id: store.proxy.data[store.proxy.data.length - 1].id + 1
+          }));
         },
         remove: (store, records, index, isMove) => {
           if (isMove) return;

@@ -8,7 +8,7 @@ let speciesData, mun; //global only during development
 function hasPrefix(strings, prefix) {
   let result =
     strings.reduce((cur, str) => str.startsWith(prefix), false);
-  console.log(result);
+
   return result;
 }
 
