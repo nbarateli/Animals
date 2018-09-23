@@ -335,9 +335,17 @@ Ext.define('Animals.view.main.MainModel', {
 
   stores: {
     speciesdata: Ext.create('Animals.store.SpeciesData', {
-      storeId: 'speciesdata', localData: data, listeners: {
-        datachanged: store => {
-          store.proxy.data = store.data.items;
+      storeId: 'speciesdata', localData: data,
+      listeners: {
+        add: (store, records) => {
+          records.forEach(record => store.proxy.data.push(record));
+        },
+        remove: (store, records, index, isMove) => {
+          if (isMove) return;
+          records.forEach(record => {
+            let indx = store.proxy.data.indexOf(store.proxy.data.find(e => e.id === record.id))
+            if (indx > -1) store.proxy.data.splice(index, 1)
+          })
         }
       }
     })
