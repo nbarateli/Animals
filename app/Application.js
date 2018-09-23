@@ -40,13 +40,25 @@ Ext.define('Animals.Application', {
     }
   },
   init: function () {
+    let changeListener = store => {
+      store.proxy.data = store.data.items;
+    }
     let mun = Ext.create('Animals.store.Municipalities', {
       data: data.municipalities,
+      listeners: {datachanged: changeListener},
       storeId: 'municipalities'
     });
 
-    let species = Ext.create('Animals.store.Species', {data: data.species, storeId: 'species'});
-    let sources = Ext.create('Animals.store.Sources', {data: data.sources, storeId: 'sources'})
+    let species = Ext.create('Animals.store.Species', {
+      data: data.species,
+      storeId: 'species',
+      listeners: {datachanged: changeListener},
+    });
+    let sources = Ext.create('Animals.store.Sources', {
+      data: data.sources,
+      storeId: 'sources',
+      listeners: {datachanged: changeListener},
+    })
     speciesData = Ext.data.StoreManager.lookup('speciesdata');
     // console.log(speciesData)
     ((items, mun, spec) => {

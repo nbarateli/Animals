@@ -5,7 +5,7 @@ Ext.define('Animals.store.SpeciesData', {
   model: 'Animals.model.SpeciesData',
   storeId: 'speciesdata',
   requires: ['Ext.data.field.Date', 'Ext.data.proxy.LocalStorage'],
-  pageSize: 25,
+  pageSize: 5,
   constructor: function (config) {
     config.autoLoad = true;
     config.remoteSort = true;
@@ -13,15 +13,14 @@ Ext.define('Animals.store.SpeciesData', {
     config.proxy = {
       type: 'memory',
       enablePaging: true,
-      data: config.localData,
+      data: config.localData.items,
       reader: {
-        type: 'json',
-        rootProperty: 'items'
+        type: 'json'
       },
       writer: config.writerConfig ? config.writerConfig : {type: 'json'}
     };
     // this.setRoot(config.localData)
     console.log(config.proxy)
     this.callParent(arguments)
-  },
+  }
 });

@@ -335,7 +335,11 @@ Ext.define('Animals.view.main.MainModel', {
 
   stores: {
     speciesdata: Ext.create('Animals.store.SpeciesData', {
-      storeId: 'speciesdata', localData: data
+      storeId: 'speciesdata', localData: data, listeners: {
+        datachanged: store => {
+          store.proxy.data = store.data.items;
+        }
+      }
     })
   },
   // data: {speciesdata: '{speciesdatastore}'}

@@ -127,7 +127,7 @@ Ext.define('Animals.view.main.MainController', {
             var form = e.up('form').getForm();
             if (form.isValid()) {
               speciesData.add(processItem(newItem))
-              debugger
+
               speciesData.sync();
               panel.destroy();
             }
