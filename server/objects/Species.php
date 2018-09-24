@@ -7,11 +7,11 @@
  */
 
 class Species {
+    //columns
     public $id;
     public $name_KA;
-
-    //columns
     public $name_EN;
+
     private $conn;
     private $table_name = "products";
 
