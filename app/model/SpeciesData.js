@@ -8,9 +8,7 @@ Ext.define('Animals.model.SpeciesData', {
     {name: 'date', type: 'date'},
     {name: 'population', type: 'integer'},
     {name: 'source', type: 'auto'},
-    {name: 'municipality', type: 'auto'},
-    {name: 'source_name_KA', type: 'string'}, {name: 'source_name_EN', type: 'string'},
-    {name: 'source_attached_document', type: 'string'}
+    {name: 'municipality', type: 'auto'}
   ],
   validators: {
     species: 'presence',

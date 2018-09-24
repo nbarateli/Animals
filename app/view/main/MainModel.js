@@ -328,6 +328,60 @@ data = {
   ]
 }
 
+function addSlashes(field) {
+
+  try {
+    return field.replace('\'', '\\\'')
+  } catch (e) {
+    try {
+      return field.id
+    } catch (e) {
+      return field
+    }
+  }
+}
+
+function generateSQLStatement(data, tableName, columns) {
+  let columnNames = `${Object.keys(columns).reduce((cur, val) => `${cur}${columns[val]}, `, `(`).slice(0, -2)})`;
+  return data.reduce((cur, rowData) => {
+    let keys = Object.keys(columns);
+    let value = keys.reduce((cur, val) => {
+      let field = rowData[val];
+      if (typeof  field !== "number")
+        field = val.indexOf('date') > -1 ? (() => {
+          let date = new Date(rowData[val]);
+          return `STR_TO_DATE('${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}', '%d/%m/%Y')`;
+        })() : `'${addSlashes(field)}'`;
+      return `${cur}${field}, `
+    }, '(').slice(0, -2) + ')'
+    return `${cur}${value}, `;
+  }, `insert into ${tableName} ${columnNames} VALUES `).slice(0, -2)
+}
+
+function f() {
+  console.log(
+    `${generateSQLStatement(data.species, 'species', {
+      name_KA: 'name_KA',
+      name_EN: 'name_EN'
+    })};\n
+    ${generateSQLStatement(data.municipalities, 'municipalities', {
+      name_KA: 'name_KA',
+      name_EN: 'name_EN'
+    })};\n
+    ${generateSQLStatement(data.sources, 'sources', {
+      name_KA: 'name_KA',
+      name_EN: 'name_EN',
+      attached_document: 'attached_document'
+    })};\n
+    ${generateSQLStatement(data.items, 'species_data', {
+      date: 'date_created',
+      population: 'population',
+      species: 'species_id',
+      municipality: 'municipality_id',
+      source: 'source_id',
+    })}`);
+}
+
 Ext.define('Animals.view.main.MainModel', {
   extend: 'Ext.app.ViewModel',
 
@@ -351,7 +405,6 @@ Ext.define('Animals.view.main.MainModel', {
         }
       }
     })
-  },
-  // data: {speciesdata: '{speciesdatastore}'}
-  //TODO - add data, formulas and/or methods to support your view
+  }
 });
+
