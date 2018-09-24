@@ -15,30 +15,29 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 // get database connection
 include_once '../config/database.php';
 
-// instantiate species object
-include_once '../objects/species.php';
+// instantiate municipalities object
+include_once '../objects/Municipality.php';
 
 $database = new Database();
 $db = $database->getConnection();
 
-$species = new Species($db);
+$municipality = new Municipality($db);
 
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
 
-// set species property values
-$species->name_KA = $data->name_KA;
-$species->name_EN = $data->name_EN;
+// set municipality property values
+$municipality->name_KA = $data->name_KA;
+$municipality->name_EN = $data->name_EN;
 
-
-// create the species
-if ($species->create()) {
+// create the municipalities
+if ($municipality->create()) {
     echo '{';
-    echo '"message": "species was created."';
+    echo '"message": "municipalities was created."';
     echo '}';
-} // if unable to create the species, tell the user
+} // if unable to create the municipalities, tell the user
 else {
     echo '{';
-    echo '"message": "Unable to create species."';
+    echo '"message": "Unable to create municipalities."';
     echo '}';
 }

@@ -3,8 +3,9 @@
  * Created by PhpStorm.
  * User: Niko
  * Date: 24.09.2018
- * Time: 12:05
- */// required headers
+ * Time: 13:07
+ */
+// required headers
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
@@ -19,8 +20,11 @@ $db = $database->getConnection();
 // initialize object
 $municipality = new Municipality($db);
 
+// get keywords
+$keywords = isset($_GET["s"]) ? $_GET["s"] : "";
+
 // query municipalities
-$stmt = $municipality->read();
+$stmt = $municipality->search($keywords);
 $num = $stmt->rowCount();
 
 // check if more than 0 record found
@@ -42,7 +46,7 @@ if ($num > 0) {
         $municipalities_item = array(
             "id" => $id,
             "name_KA" => $name_KA,
-            "name_EN" => $name_EN,
+            "name_EN" => $name_EN
         );
 
         array_push($municipalities_arr["records"], $municipalities_item);
@@ -54,3 +58,4 @@ if ($num > 0) {
         array("message" => "No municipalities found.")
     );
 }
+?>

@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Niko
  * Date: 24.09.2018
- * Time: 12:24
+ * Time: 13:05
  */
 // required headers
 header("Access-Control-Allow-Origin: *");
@@ -12,33 +12,33 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-// get database connection
+
+// include database and object file
 include_once '../config/database.php';
+include_once '../objects/Municipality.php';
 
-// instantiate species object
-include_once '../objects/species.php';
-
+// get database connection
 $database = new Database();
 $db = $database->getConnection();
 
-$species = new Species($db);
+// prepare municipalities object
+$municipality = new Municipality($db);
 
-// get posted data
+// get municipalities id
 $data = json_decode(file_get_contents("php://input"));
 
-// set species property values
-$species->name_KA = $data->name_KA;
-$species->name_EN = $data->name_EN;
+// set municipalities id to be deleted
+$municipality->id = $data->id;
 
-
-// create the species
-if ($species->create()) {
+// delete the municipalities
+if ($municipality->delete()) {
     echo '{';
-    echo '"message": "species was created."';
+    echo '"message": "municipalities was deleted."';
     echo '}';
-} // if unable to create the species, tell the user
+} // if unable to delete the municipalities
 else {
     echo '{';
-    echo '"message": "Unable to create species."';
+    echo '"message": "Unable to delete object."';
     echo '}';
 }
+?>

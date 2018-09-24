@@ -3,10 +3,11 @@
  * Created by PhpStorm.
  * User: Niko
  * Date: 24.09.2018
- * Time: 12:05
- */// required headers
+ * Time: 13:07
+ */
+// required headers
 header("Access-Control-Allow-Origin: *");
-//header("Content-Type: application/json; charset=UTF-8");
+header("Content-Type: application/json; charset=UTF-8");
 
 // include database and object files
 include_once '../config/database.php';
@@ -19,8 +20,11 @@ $db = $database->getConnection();
 // initialize object
 $species_data = new SpeciesData($db);
 
+// get keywords
+$keywords = isset($_GET["s"]) ? $_GET["s"] : "";
+
 // query species_data
-$stmt = $species_data->read();
+$stmt = $species_data->search($keywords);
 $num = $stmt->rowCount();
 
 // check if more than 0 record found
@@ -48,7 +52,6 @@ if ($num > 0) {
             "municipality_id" => $municipality_id, "municipality_name_KA" => $municipality_name_KA, "municipality_name_EN" => $municipality_name_EN,
         );
 
-
         array_push($species_data_arr["records"], $species_data_item);
     }
 
@@ -58,3 +61,4 @@ if ($num > 0) {
         array("message" => "No species_data found.")
     );
 }
+?>

@@ -15,30 +15,30 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 // get database connection
 include_once '../config/database.php';
 
-// instantiate species object
-include_once '../objects/species.php';
+// instantiate sources object
+include_once '../objects/Source.php';
 
 $database = new Database();
 $db = $database->getConnection();
 
-$species = new Species($db);
+$source = new Source($db);
 
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
 
-// set species property values
-$species->name_KA = $data->name_KA;
-$species->name_EN = $data->name_EN;
+// set source property values
+$source->name_KA = $data->name_KA;
+$source->name_EN = $data->name_EN;
+$source->attached_document = $data->attached_document;
 
-
-// create the species
-if ($species->create()) {
+// create the sources
+if ($source->create()) {
     echo '{';
-    echo '"message": "species was created."';
+    echo '"message": "sources was created."';
     echo '}';
-} // if unable to create the species, tell the user
+} // if unable to create the sources, tell the user
 else {
     echo '{';
-    echo '"message": "Unable to create species."';
+    echo '"message": "Unable to create sources."';
     echo '}';
 }
