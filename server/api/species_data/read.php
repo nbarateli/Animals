@@ -6,7 +6,7 @@
  * Time: 12:05
  */// required headers
 header("Access-Control-Allow-Origin: *");
-//header("Content-Type: application/json; charset=UTF-8");
+header("Content-Type: application/json; charset=UTF-8");
 
 // include database and object files
 include_once '../config/database.php';
@@ -43,9 +43,9 @@ if ($num > 0) {
             "id" => $id,
             "date_created" => $date_created,
             "population" => $population,
-            "species_id" => $species_id, "species_name_KA" => $species_name_KA, "species_name_EN" => $species_name_EN,
-            "source_id" => $source_id, "source_name_KA" => $source_name_KA, "source_name_EN" => $source_name_EN, "source_attached_document" => $source_attached_document,
-            "municipality_id" => $municipality_id, "municipality_name_KA" => $municipality_name_KA, "municipality_name_EN" => $municipality_name_EN,
+            "species" => array("id" => $species_id, "name_KA" => $species_name_KA, "name_EN" => $species_name_EN),
+            "source" => array("id" => $source_id, "name_KA" => $source_name_KA, "name_EN" => $source_name_EN, "attached_document" => $source_attached_document),
+            "municipality" => array("id" => $municipality_id, "name_KA" => $municipality_name_KA, "name_EN" => $municipality_name_EN),
         );
 
 

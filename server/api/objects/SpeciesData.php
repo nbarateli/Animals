@@ -216,10 +216,21 @@ class SpeciesData {
     public function readPaging($from_record_num, $records_per_page) {
 
         // select query
-        $query = "SELECT
-               *
-            FROM
-                " . $this->table_name . " p
+        $query = "SELECT *,
+      sp.name_KA          as species_name_KA,
+      sp.name_EN          as species_name_EN,
+      m.name_KA           as municipality_name_KA,
+      m.name_EN           as municipality_name_EN,
+      s.name_KA           as source_name_KA,
+      s.name_EN           as source_name_EN,
+      s.attached_document as source_attached_document
+
+
+      FROM " . $this->table_name . " data
+       LEFT JOIN species sp ON data.species_id = sp.id
+       LEFT JOIN municipalities m ON data.municipality_id = m.id
+       LEFT JOIN sources s ON data.source_id = s.id
+
             LIMIT ?, ?";
 
         // prepare query statement
