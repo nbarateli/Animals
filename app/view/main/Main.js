@@ -5,7 +5,6 @@
  *
  * TODO - Replace this content of this view to suite the needs of your application.
  */
-let mainlist;
 Ext.define('Animals.view.main.Main', {
   extend: 'Ext.tab.Panel',
   xtype: 'app-main',
@@ -79,32 +78,13 @@ Ext.define('Animals.view.main.Main', {
     title: 'სახეობები',
     iconCls: 'fa-home',
     // The following grid shares a store with the classic version's grid as well!
-    items: [mainlist = {
+    items: [{
       xtype: 'mainlist',
       stateful: true,
       stateId: 'statefulgrid',
     }
     ]
-  },
-//     {
-//     title: 'Users',
-//     iconCls: 'fa-user',
-//     bind: {
-//         html: '{loremIpsum}'
-//     }
-// }, {
-//     title: 'Groups',
-//     iconCls: 'fa-users',
-//     bind: {
-//         html: '{loremIpsum}'
-//     }
-// }, {
-//     title: 'Settings',
-//     iconCls: 'fa-cog',
-//     bind: {
-//         html: '{loremIpsum}'
-//     }
-// }
+  }
   ]
 })
 ;

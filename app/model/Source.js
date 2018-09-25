@@ -18,14 +18,20 @@ Ext.define('Ext.grid.filters.filter.SourceFilter', {
     } else {
       let filter = this.filter;
       let dataIndex = this.dataIndex;
+      let id = this.filterId;
       this.addStoreFilter(new Ext.util.Filter({
+        id: id,
         filterFn: function (item) {
-          let reg = new RegExp(filter.getValue(), 'gi')
+          if (filter.getValue() === undefined) return true;
+          let reg = new RegExp(filter.getValue().replace(/(\\|\||\.|\^|\$|\*|\+|\-|\?|\=\{|\}|\[|\]|\(|\))/gi,
+            '\\$1'), 'gi');
           return item.get(dataIndex).get('name_KA').match(reg) !== null ||
             item.get(dataIndex).get('name_EN').match(reg) !== null ||
             item.get(dataIndex).get('attached_document').match(reg) !== null;
         }
       }));
     }
-  },
-})
+  }, deactivate: function () {
+    this.getGridStore().removeFilter(this.filterId)
+  }
+});

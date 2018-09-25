@@ -20,14 +20,19 @@ Ext.define('Ext.grid.filters.filter.Animals', {
     } else {
       let filter = this.filter;
       let dataIndex = this.dataIndex;
+      let id = this.filterId;
       this.addStoreFilter(new Ext.util.Filter({
+        id: id,
         filterFn: function (item) {
+          if (filter.getValue() === undefined) return true;
           let reg = new RegExp(filter.getValue().replace(/(\\|\||\.|\^|\$|\*|\+|\-|\?|\=\{|\}|\[|\]|\(|\))/gi,
-            '\\$1'), 'gi')
+            '\\$1'), 'gi');
           return item.get(dataIndex).get('name_KA').match(reg) !== null ||
             item.get(dataIndex).get('name_EN').match(reg) !== null;
         }
       }));
     }
-  },
-})
+  }, deactivate: function () {
+    this.getGridStore().removeFilter(this.filterId)
+  }
+});

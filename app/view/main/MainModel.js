@@ -2,7 +2,8 @@
  * This class is the view model for the Main view of the application.
  */
 data = {
-  municipalities: [{
+  municipalities: [
+    {
     name_KA: 'თბილისი',
     name_EN: 'Tbilisi',
     id: 1
@@ -43,7 +44,8 @@ data = {
       id: 8
     },
   ],
-  species: [{
+  species: [
+    {
     id: 1,
     name_KA: 'მგელი',
     name_EN: 'Wolf'
@@ -96,7 +98,8 @@ data = {
       name_EN: 'fool'
     }
   ],
-  sources: [{
+  sources: [
+    {
     id: 1,
     name_KA: 'წყაროების წყარო',
     name_EN: 'The source to end all sources',
@@ -169,7 +172,8 @@ data = {
       attached_document: 'source.jpg'
     }
   ],
-  items: [{
+  items: [
+    {
     name_KA: 'მგელი',
     name_EN: 'Wolf',
     species: 1,
@@ -326,9 +330,7 @@ data = {
       source: 12
     }
   ]
-}
-
-
+};
 
 Ext.define('Animals.view.main.MainModel', {
   extend: 'Ext.app.ViewModel',
@@ -347,7 +349,7 @@ Ext.define('Animals.view.main.MainModel', {
         remove: (store, records, index, isMove) => {
           if (isMove) return;
           records.forEach(record => {
-            let indx = store.proxy.data.indexOf(store.proxy.data.find(e => e.id === record.id))
+            let indx = store.proxy.data.indexOf(store.proxy.data.find(e => e.id === record.id));
             if (indx > -1) store.proxy.data.splice(index, 1)
           })
         }

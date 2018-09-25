@@ -5,7 +5,6 @@ Ext.define('Animals.model.Species', {
   fields: [
     {name: 'id', type: 'int'},
     {name: 'name_KA', type: 'string'}, {name: 'name_EN', type: 'string'}
-
   ],
   validators: {
     name_KA: 'presence', name_EN: 'presence',

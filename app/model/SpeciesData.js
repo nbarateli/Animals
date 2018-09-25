@@ -10,6 +10,7 @@ Ext.define('Animals.model.SpeciesData', {
     {name: 'source', type: 'auto'},
     {name: 'municipality', type: 'auto'}
   ],
+
   validators: {
     species: 'presence',
     municipality: 'presence',

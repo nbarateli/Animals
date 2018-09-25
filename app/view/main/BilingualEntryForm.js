@@ -8,12 +8,11 @@ Ext.define('Animals.view.main.BilingualEntryForm',
     bodyPadding: 5,
     floating: true,
     closable: true,
-    // modal: true,
     defaultType: 'textfield',
     modelValidation: true,
     handlers: {
       save: function (e) {
-        var form = e.up('form').getForm();
+        const form = e.up('form').getForm();
         if (form.isValid()) {
           species.sync();
           panel.destroy();

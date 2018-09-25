@@ -43,6 +43,8 @@ Ext.define('Animals.view.main.List', {
       filter: {
         type: 'animalsfilter',
         dataIndex: 'species',
+        filterId: 'speciesFilter',
+        store: 'speciesdata',
         itemDefaults: {
           emptyText: 'Search for...'
         }
@@ -67,8 +69,10 @@ Ext.define('Animals.view.main.List', {
       sortable:
         true,
       filter: {
-        dataIndex: 'municipality',
         type: 'animalsfilter',
+        dataIndex: 'municipality',
+        filterId: 'municipalityFilter',
+        store: 'speciesdata',
         itemDefaults: {
           emptyText: 'Search for...'
         }
@@ -78,7 +82,7 @@ Ext.define('Animals.view.main.List', {
       text: 'Source',
       dataIndex: 'source',
       flex: 2,
-      renderer: (val, elem, entry) => {
+      renderer: (val) => {
         let sources = Ext.data.StoreManager.lookup('sources');
         if (typeof  val === "number") val = sources.getAt(sources.findBy((rec, id) => id === val));
         return `<a target="_blank" href='${val.data.attached_document}'>${val.data.name_KA}</a> \t• <a target="_blank" href='${val.data.attached_document}'>${val.data.name_EN}</a>`
@@ -87,6 +91,8 @@ Ext.define('Animals.view.main.List', {
       filter: {
         dataIndex: 'source',
         type: 'sourcefilter',
+        store: 'speciesdata',
+        filterId: 'sourceFilter',
         itemDefaults: {
           emptyText: 'Search for...'
         }
@@ -95,8 +101,7 @@ Ext.define('Animals.view.main.List', {
   ],
 
   listeners: {
-    // select: 'onItemSelected',
-    // tap: 'onItemSelected',
+
     itemdblclick: 'onItemSelected'
   },
   loadMask: true,
@@ -123,7 +128,7 @@ Ext.define('Animals.view.main.List', {
       loadingMask.show();
       setTimeout(() => {
 
-        panel.store.load((records, operation, success) => {
+        panel.store.load(() => {
 
           loadingMask.hide();
         })

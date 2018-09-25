@@ -3,29 +3,26 @@
  * calls Ext.application(). This is the ideal place to handle application launch and
  * initialization details.
  */
-let BLANK_FUNCTION = (e, i) => '';
+let BLANK_FUNCTION = () => '';
 let getFileName = s => {
-  let result = /\\[^\\]*$/.exec(s)
+  let result = /\\[^\\]*$/.exec(s);
   return result ? s.substring(result.index + 1) : s;
 };
 
 nameRenderer = (val, el, entry, store) => {
-  oldval = val;
   store = Ext.data.StoreManager.lookup(store);
 
   if (typeof  val === "number") val = store.getAt(store.findBy((el, id) => id === val));
   if (val === null) {
-    // console.log(oldval);
 
   }
 
   return `${val.data.name_KA}\t• ${val.data.name_EN}`
-}
+};
 
 function processItems(items, mun, spec) {
-  // console.log(items)
   items.map(item => {
-    item.municipality = mun.getAt(item.municipality - 1)
+    item.municipality = mun.getAt(item.municipality - 1);
     item.species = spec.getAt(item.species - 1);
   });
   return items;
@@ -42,7 +39,7 @@ Ext.define('Animals.Application', {
       quickTips: true
     }
   },
-  init: function () {
+  init() {
     let listeners = {
       add: (store, records) => {
         records.forEach(record => store.proxy.data.push({
@@ -53,11 +50,11 @@ Ext.define('Animals.Application', {
       remove: (store, records, index, isMove) => {
         if (isMove) return;
         records.forEach(record => {
-          let indx = store.proxy.data.indexOf(store.proxy.data.find(e => e.id === record.id))
+          let indx = store.proxy.data.indexOf(store.proxy.data.find(e => e.id === record.id));
           if (indx > -1) store.proxy.data.splice(index, 1)
         })
       }
-    }
+    };
     let mun = Ext.create('Animals.store.Municipalities', {
       data: data.municipalities,
       listeners: listeners,
@@ -89,22 +86,21 @@ Ext.define('Animals.Application', {
       },
     });
     speciesData = Ext.data.StoreManager.lookup('speciesdata');
-    // console.log(speciesData)
-    ((items, mun, spec) => {
+    ((items, mun, spec, sources) => {
       items.map(item => {
-        item.municipality = mun.getAt(item.municipality - 1)
+        item.municipality = mun.getAt(item.municipality - 1);
         item.species = spec.getAt(item.species - 1);
         item.source = sources.getAt(item.source - 1)
       });
       return items;
-    })(data.items, mun, species);
+    })(speciesData.proxy.data, mun, species, sources);
 
     Ext.state.Manager.setProvider(new Ext.state.CookieProvider({
       expires: new Date(Ext.Date.now() + (1000 * 60 * 60 * 24 * 90)) // 90 days
     }));
   },
 
-  onAppUpdate: function () {
+  onAppUpdate() {
     Ext.Msg.confirm('Application Update', 'This application has an update, reload?',
       function (choice) {
         if (choice === 'yes') {

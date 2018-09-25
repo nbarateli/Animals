@@ -8,8 +8,6 @@ Ext.define('Animals.store.SpeciesData', {
   pageSize: 5,
   constructor: function (config) {
     config.autoLoad = true;
-    config.remoteSort = true;
-    config.remoteFilter = true;
     config.proxy = {
       type: 'memory',
       enablePaging: true,

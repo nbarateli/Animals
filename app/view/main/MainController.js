@@ -11,7 +11,7 @@ function processItem(item) {
     : item.get('species');
   item.source = item.get('source').id === undefined ?
     sources.getAt(sources.findBy((rec, id) => id === item.get('source')))
-    : item.get('source')
+    : item.get('source');
 
   return item;
 }
@@ -20,7 +20,6 @@ function processItem(item) {
  * This class is the controller for the main view for the application. It is specified as
  * the "controller" of the Main view class.
  */
-
 Ext.define('Animals.view.main.MainController', {
   extend: 'Ext.app.ViewController',
 
@@ -40,19 +39,17 @@ Ext.define('Animals.view.main.MainController', {
 
       handlers: {
         save: function (e) {
-          var form = e.up('form').getForm();
+          const form = e.up('form').getForm();
           if (form.isValid()) {
-//console.log(options)
             if (!editEntry)
-              options.store.add(options.modelData)
-            // options.store.sync();
-//console.log(options)
+              options.store.add(options.modelData);
+            options.store.sync();
             panel.destroy();
           }
         }
       }
     });
-    // console.log(options.modelData)
+
     panel.setZIndex(1000);
     options.additionalFields = options.additionalFields || [];
     options.additionalFields.map(itm => {
@@ -62,13 +59,12 @@ Ext.define('Animals.view.main.MainController', {
 
   },
   onEditItem: function (e) {
-    let species = Ext.data.StoreManager.lookup('speciesdata');
     let item = e.up('panel').selection;
     if (item !== null) this.onItemSelected({}, item)
   },
   onItemSelected: function (sender, record) {
     let species = Ext.data.StoreManager.lookup('speciesdata');
-//console.log(record)
+
     let panel = Ext.create('Animals.view.main.SpeciesDataForm',
       {
         title: 'შეცვლა',
@@ -81,7 +77,7 @@ Ext.define('Animals.view.main.MainController', {
 
         handlers: {
           save: function (e) {
-            var form = e.up('form').getForm();
+            const form = e.up('form').getForm();
             if (form.isValid()) {
               species.sync();
               panel.destroy();
@@ -109,9 +105,11 @@ Ext.define('Animals.view.main.MainController', {
   },
   onClearFilters: function (e) {
     // The "filters" property is added to the grid by gridfilters
-    e.findParentByType('grid').filters.clearFilters();
+    let grid = e.findParentByType('grid');
+    grid.filters.clearFilters();
+    grid.getStore().clearFilter()
   },
-  onAddItem: function (sender, record) {
+  onAddItem: function () {
     let speciesData = Ext.data.StoreManager.lookup('speciesdata');
     let newItem = Ext.create('Animals.model.SpeciesData');
     let panel =
@@ -124,11 +122,11 @@ Ext.define('Animals.view.main.MainController', {
           }
         }, handlers: {
           save: function (e) {
-            var form = e.up('form').getForm();
+            const form = e.up('form').getForm();
             if (form.isValid()) {
-              speciesData.add(processItem(newItem))
+              speciesData.add(processItem(newItem));
               speciesData.sync();
-              speciesData.reload()
+              speciesData.reload();
               panel.destroy();
             }
           },
@@ -143,7 +141,6 @@ Ext.define('Animals.view.main.MainController', {
 
         }
       });
-    // console.log(panel)
   },
   processEntry: (editEntry, className, storeName, panel, processFn) => {
     let entryId = editEntry !== false ? editEntry[Object.keys(editEntry)[0]] : undefined;
@@ -180,8 +177,7 @@ Ext.define('Animals.view.main.MainController', {
       })
   },
   onRemoveItem:
-
-    function (e, i, a) {
+    function (e) {
 
       let species = Ext.data.StoreManager.lookup('speciesdata');
       let item = e.up('panel').selection;
