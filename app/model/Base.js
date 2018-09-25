@@ -8,8 +8,8 @@ Ext.define('Animals.model.Base', {
   schema: {
     namespace: 'Animals.model'
   },
-  // hasMany: 'Animals.model.SpeciesData'
 });
+
 Ext.define('Ext.grid.filters.filter.Animals', {
   extend: 'Ext.grid.filters.filter.String',
   alias: 'grid.filter.animalsfilter',
@@ -25,7 +25,7 @@ Ext.define('Ext.grid.filters.filter.Animals', {
         id: id,
         filterFn: function (item) {
           if (filter.getValue() === undefined) return true;
-          let reg = new RegExp(filter.getValue().replace(/(\\|\||\.|\^|\$|\*|\+|\-|\?|\=\{|\}|\[|\]|\(|\))/gi,
+          let reg = new RegExp(filter.getValue().replace(/(\\|\||\.|\^|\$|\*|\+|-|\?|={|}|\[|]|\(|\))/gi,
             '\\$1'), 'gi');
           return item.get(dataIndex).get('name_KA').match(reg) !== null ||
             item.get(dataIndex).get('name_EN').match(reg) !== null;

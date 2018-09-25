@@ -8,6 +8,7 @@ Ext.define('Animals.model.Source', {
     {name: 'attached_document', type: 'string'}
   ]
 });
+
 Ext.define('Ext.grid.filters.filter.SourceFilter', {
   extend: 'Ext.grid.filters.filter.String',
   alias: 'grid.filter.sourcefilter',
@@ -23,7 +24,7 @@ Ext.define('Ext.grid.filters.filter.SourceFilter', {
         id: id,
         filterFn: function (item) {
           if (filter.getValue() === undefined) return true;
-          let reg = new RegExp(filter.getValue().replace(/(\\|\||\.|\^|\$|\*|\+|\-|\?|\=\{|\}|\[|\]|\(|\))/gi,
+          let reg = new RegExp(filter.getValue().replace(/(\\|\||\.|\^|\$|\*|\+|-|\?|={|}|\[|]|\(|\))/gi,
             '\\$1'), 'gi');
           return item.get(dataIndex).get('name_KA').match(reg) !== null ||
             item.get(dataIndex).get('name_EN').match(reg) !== null ||
