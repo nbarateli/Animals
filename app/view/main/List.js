@@ -111,6 +111,23 @@ Ext.define('Animals.view.main.List', {
     displayInfo: true,
     displayMsg: 'Displaying topics {0} - {1} of {2}',
     emptyMsg: "No topics to display",
+    onRefresh(elem) {
+
+      let panel = elem.up('panel');
+      let loadingMask = new Ext.LoadMask({
+        msg: 'Please wait...',
+        target: panel
+      });
+
+      loadingMask.show();
+      setTimeout(() => {
+
+        panel.store.load(() => {
+
+          loadingMask.hide();
+        })
+      }, 200)//only for testing
+    },
     items: [
       {
         xtype: 'numberfield',
@@ -127,5 +144,6 @@ Ext.define('Animals.view.main.List', {
       }],
     doRefresh: 'onRefresh'
   },
+
   plugins: 'gridfilters'
 });
