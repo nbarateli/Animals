@@ -111,29 +111,21 @@ Ext.define('Animals.view.main.List', {
     displayInfo: true,
     displayMsg: 'Displaying topics {0} - {1} of {2}',
     emptyMsg: "No topics to display",
-    items: ['-', {
-      bind: '{expanded ? "Hide Preview" : "Show Preview"}',
-      pressed: '{expanded}',
-      enableToggle: true,
-      toggleHandler: 'onToggleExpanded'
-    }],
-    doRefresh: function (toolbar) {
-
-      let panel = toolbar.up('panel');
-      let loadingMask = new Ext.LoadMask({
-        msg: 'Please wait...',
-        target: panel
-      });
-
-      loadingMask.show();
-      setTimeout(() => {
-
-        panel.store.load(() => {
-
-          loadingMask.hide();
-        })
-      }, 200)//only for testing
-    }
+    items: [
+      {
+        xtype: 'numberfield',
+        fieldLabel: 'Items on page',
+        value: 5,
+        step: 5,
+        maxWidth: 180,
+        minValue: 1,
+        listeners: {
+          change:
+            'onNumberOfPagesChanged'
+        },
+        allowBlank: false
+      }],
+    doRefresh: 'onRefresh'
   },
   plugins: 'gridfilters'
 });

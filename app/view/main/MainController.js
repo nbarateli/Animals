@@ -58,6 +58,30 @@ Ext.define('Animals.view.main.MainController', {
     });
 
   },
+  onNumberOfPagesChanged(e) {
+
+    if (!e.isValid()) return;
+    e.up('panel').store
+      .setPageSize(e.getValue());
+    this.onRefresh(e);
+  },
+  onRefresh(elem) {
+
+    let panel = elem.up('panel');
+    let loadingMask = new Ext.LoadMask({
+      msg: 'Please wait...',
+      target: panel
+    });
+
+    loadingMask.show();
+    setTimeout(() => {
+
+      panel.store.load(() => {
+
+        loadingMask.hide();
+      })
+    }, 200)//only for testing
+  },
   onEditItem: function (e) {
     let item = e.up('panel').selection;
     if (item !== null) this.onItemSelected({}, item)
