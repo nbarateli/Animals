@@ -61,7 +61,7 @@ Ext.define('Animals.view.main.MainController', {
   onNumberOfPagesChanged(e) {
     if (!e.isValid()) return;
     e.up('panel').store
-      .setPageSize(e.getValue());
+      .setPageSize(Number(e.getValue()));
     this.onRefresh(e);
   },
   onRefresh(elem) {
@@ -74,10 +74,13 @@ Ext.define('Animals.view.main.MainController', {
     loadingMask.show();
     setTimeout(() => {
       let lastPage = Math.ceil(panel.store.getTotalCount() / panel.store.getPageSize());
+
       panel.store.currentPage =
         panel.store.currentPage > lastPage ? lastPage : panel.store.currentPage;
-      panel.store.load(() => {
-        loadingMask.hide();
+      panel.store.loadPage(panel.store.currentPage, {
+        callback: () => {
+          loadingMask.hide();
+        }
       })
     }, 200)//only for testing
   },
