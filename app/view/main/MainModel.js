@@ -4,10 +4,10 @@
 data = {
   municipalities: [
     {
-    name_KA: 'თბილისი',
-    name_EN: 'Tbilisi',
-    id: 1
-  },
+      name_KA: 'თბილისი',
+      name_EN: 'Tbilisi',
+      id: 1
+    },
     {
       name_KA: 'ქუთაისი',
       name_EN: 'Kutaisi',
@@ -46,10 +46,10 @@ data = {
   ],
   species: [
     {
-    id: 1,
-    name_KA: 'მგელი',
-    name_EN: 'Wolf'
-  },
+      id: 1,
+      name_KA: 'მგელი',
+      name_EN: 'Wolf'
+    },
     {
       id: 2,
       name_KA: 'ვეფხვი',
@@ -100,11 +100,11 @@ data = {
   ],
   sources: [
     {
-    id: 1,
-    name_KA: 'წყაროების წყარო',
-    name_EN: 'The source to end all sources',
-    attached_document: 'source.jpg'
-  },
+      id: 1,
+      name_KA: 'წყაროების წყარო',
+      name_EN: 'The source to end all sources',
+      attached_document: 'source.jpg'
+    },
     {
       id: 2,
       name_KA: 'ჩემი ძმაკანა ტოო',
@@ -174,18 +174,18 @@ data = {
   ],
   items: [
     {
-    name_KA: 'მგელი',
-    name_EN: 'Wolf',
-    species: 1,
-    date: 'Fri Jun 12 2015 00:00:00 GMT+0400 (Georgia Standard Time)',
-    population: 2456,
-    municipality: 1,
-    source_name_KA: 'წყაროების წყარო',
-    source_name_EN: 'The source to end all sources',
-    source_attached_document: 'source.jpg',
-    id: 1,
-    source: 1
-  },
+      name_KA: 'მგელი',
+      name_EN: 'Wolf',
+      species: 1,
+      date: 'Fri Jun 12 2015 00:00:00 GMT+0400 (Georgia Standard Time)',
+      population: 2456,
+      municipality: 1,
+      source_name_KA: 'წყაროების წყარო',
+      source_name_EN: 'The source to end all sources',
+      source_attached_document: 'source.jpg',
+      id: 1,
+      source: 1
+    },
     {
       name_KA: 'ვეფხვი',
       name_EN: 'Tiger',
@@ -342,9 +342,10 @@ Ext.define('Animals.view.main.MainModel', {
       storeId: 'speciesdata', localData: data,
       listeners: {
         add: (store, records) => {
-          records.forEach(record => store.proxy.data.push({
-            ...record.data, id: store.proxy.data[store.proxy.data.length - 1].id + 1
-          }));
+          records.forEach(
+            record => store.proxy.data.push({
+              ...record.data, id: store.proxy.data[store.proxy.data.length - 1].id + 1
+            }));
         },
         remove: (store, records, index, isMove) => {
           if (isMove) return;

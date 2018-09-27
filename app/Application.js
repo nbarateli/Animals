@@ -11,13 +11,12 @@ let getFileName = s => {
 
 nameRenderer = (val, el, entry, store) => {
   store = Ext.data.StoreManager.lookup(store);
-
   if (typeof  val === "number") val = store.getAt(store.findBy((el, id) => id === val));
   if (val === null) {
 
   }
 
-  return `${val.data.name_KA}\t• ${val.data.name_EN}`
+  return val.data ? `${val.data.name_KA}\t• ${val.data.name_EN}` : `${val.name_KA}\t• ${val.name_EN}`
 };
 
 function processItems(items, mun, spec) {
@@ -86,14 +85,17 @@ Ext.define('Animals.Application', {
       },
     });
     speciesData = Ext.data.StoreManager.lookup('speciesdata');
-    ((items, mun, spec, sources) => {
-      items.map(item => {
-        item.municipality = mun.getAt(item.municipality - 1);
-        item.species = spec.getAt(item.species - 1);
-        item.source = sources.getAt(item.source - 1)
-      });
-      return items;
-    })(speciesData.proxy.data, mun, species, sources);
+    if (speciesData.proxy.data !== undefined)
+      ((items, mun, spec, sources) => {
+        items.map(item => {
+
+          item.municipality = mun.getAt(item.municipality - 1);
+          item.species = spec.getAt(item.species - 1);
+          item.source = sources.getAt(item.source - 1)
+        });
+        return items;
+
+      })(speciesData.proxy.data, mun, species, sources);
 
     Ext.state.Manager.setProvider(new Ext.state.CookieProvider({
       expires: new Date(Ext.Date.now() + (1000 * 60 * 60 * 24 * 90)) // 90 days

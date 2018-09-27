@@ -218,5 +218,9 @@ Ext.define('Animals.view.main.MainController', {
 
       }
 
-    }
-});
+    },
+  onShowSources(grid, r, c, button, e, item) {
+    console.log(item)
+  }
+})
+;
