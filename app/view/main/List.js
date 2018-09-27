@@ -6,7 +6,7 @@ Ext.define('Animals.view.main.List', {
 
   extend: 'Ext.grid.Panel',
   xtype: 'mainlist',
-  minHeight: window.innerHeight * 0.85,
+  minHeight: window.innerHeight * 0.9,
   minWidth: window.innerWidth * .8,
   tbar: [{
     iconCls: 'x-fa fa-plus',
