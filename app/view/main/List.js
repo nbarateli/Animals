@@ -130,20 +130,33 @@ Ext.define('Animals.view.main.List', {
     },
     items: [
       {
-        xtype: 'numberfield',
-        fieldLabel: 'Items on page',
+        xtype: 'combobox',
+        fieldLabel: 'Items per page',
         value: 5,
-        step: 5,
+        store: Ext.create('Ext.data.Store', {
+          model: Ext.create('Ext.data.Model', {
+            fields: [{name: 'val', type: 'int'}],
+            validators: {'val': v => v > 0}
+          }),
+          data: [{val: 5}, {val: 10}, {val: 25}, {val: 50}, {val: 100}
+          ]
+        }),
+        valueField: 'val',
+        displayField: 'val',
         maxWidth: 180,
+        modelValidation: true,
         minValue: 1,
         listeners: {
           change:
             'onNumberOfPagesChanged'
         },
+        validator: v => v.val ? v.val > 0 : v > 0,
+        forceSelection: false,
         allowBlank: false
       }],
     doRefresh: 'onRefresh'
   },
 
   plugins: 'gridfilters'
-});
+})
+;

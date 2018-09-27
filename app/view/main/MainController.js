@@ -59,7 +59,6 @@ Ext.define('Animals.view.main.MainController', {
 
   },
   onNumberOfPagesChanged(e) {
-
     if (!e.isValid()) return;
     e.up('panel').store
       .setPageSize(e.getValue());
