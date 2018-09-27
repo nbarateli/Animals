@@ -65,7 +65,6 @@ Ext.define('Animals.view.main.MainController', {
     this.onRefresh(e);
   },
   onRefresh(elem) {
-
     let panel = elem.up('panel');
     let loadingMask = new Ext.LoadMask({
       msg: 'Please wait...',
@@ -74,9 +73,10 @@ Ext.define('Animals.view.main.MainController', {
 
     loadingMask.show();
     setTimeout(() => {
-
+      let lastPage = Math.ceil(panel.store.getTotalCount() / panel.store.getPageSize());
+      panel.store.currentPage =
+        panel.store.currentPage > lastPage ? lastPage : panel.store.currentPage;
       panel.store.load(() => {
-
         loadingMask.hide();
       })
     }, 200)//only for testing
