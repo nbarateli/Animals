@@ -62,7 +62,7 @@ if ($num > 0) {
     $page_url = "{$home_url}sources/read_paging.php?";
     $paging = $utilities->getPaging($page, $total_rows, $records_per_page, $page_url);
     $sources_arr["paging"] = $paging;
-
+    $sources_arr["total"] = $total_rows;
     echo json_encode($sources_arr);
 } else {
     echo json_encode(

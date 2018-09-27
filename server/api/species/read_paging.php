@@ -61,7 +61,7 @@ if ($num > 0) {
     $page_url = "{$home_url}species/read_paging.php?";
     $paging = $utilities->getPaging($page, $total_rows, $records_per_page, $page_url);
     $species_arr["paging"] = $paging;
-
+    $species_arr["total"] = $total_rows;
     echo json_encode($species_arr);
 } else {
     echo json_encode(
