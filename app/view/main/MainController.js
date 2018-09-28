@@ -211,7 +211,6 @@ Ext.define('Animals.view.main.MainController', {
         Ext.Msg.confirm('ყურადღება', 'ნამდვილად გსურთ ამ მონაცემის წაშლა?', () => {
           species.remove(item);
           species.sync();
-
           Ext.Msg.alert('successfully removed');
         })
       } else {
@@ -220,6 +219,11 @@ Ext.define('Animals.view.main.MainController', {
 
     },
   onShowSources(grid, r, c, button, e, item) {
+    Ext.create('Animals.view.main.MultiSourceList', {
+      renderTo: document.body,
+      modal: true,
+      store: 'sources'
+    });
     console.log(item)
   }
 })

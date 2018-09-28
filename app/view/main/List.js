@@ -91,37 +91,36 @@ Ext.define('Animals.view.main.List', {
           }
         ]
     },
-    // {
-    //   text: 'Source',
-    //   dataIndex:
-    //     'source',
-    //   flex:
-    //     2,
-    //   renderer:
-    //     (val) => {
-    //       let sources = Ext.data.StoreManager.lookup('sources');
-    //       if (typeof  val === "number") val = sources.getAt(sources.findBy((rec, id) => id === val));
-    //       return val.data ?
-    //         `<a target="_blank" href='${val.data.attached_document}'>${val.data.name_KA}</a> \t• <a target="_blank" href='${val.data.attached_document}'>${val.data.name_EN}</a>` :
-    //         `<a target="_blank" href='${val.attached_document}'>${val.name_KA}</a> \t• <a target="_blank" href='${val.attached_document}'>${val.name_EN}</a>`
-    //     },
-    //   sortable:
-    //     true,
-    //   filter:
-    //     {
-    //       dataIndex: 'source',
-    //       type:
-    //         'sourcefilter',
-    //       store:
-    //         'speciesdata',
-    //       filterId:
-    //         'sourceFilter',
-    //       itemDefaults:
-    //         {
-    //           emptyText: 'Search for...'
-    //         }
-    //     }
-    // }
+    {
+      text: 'Source',
+      dataIndex:
+        'source',
+      flex:
+        2,
+      renderer:
+        (val) => {
+          let sources = Ext.data.StoreManager.lookup('sources');
+          if (typeof  val === "number") val = sources.getAt(sources.findBy((rec, id) => id === val));
+          let rend = val.data ? {...val.data} : {...val};
+          return `<a target="_blank" href='${rend.attached_document}'>${rend.name_KA}</a> \t• <a target="_blank" href='${rend.attached_document}'>${rend.name_EN}</a>`
+        },
+      sortable:
+        true,
+      filter:
+        {
+          dataIndex: 'source',
+          type:
+            'sourcefilter',
+          store:
+            'speciesdata',
+          filterId:
+            'sourceFilter',
+          itemDefaults:
+            {
+              emptyText: 'Search for...'
+            }
+        }
+    }
   ],
 
   listeners: {
