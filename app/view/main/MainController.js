@@ -219,12 +219,44 @@ Ext.define('Animals.view.main.MainController', {
 
     },
   onShowSources(grid, r, c, button, e, item) {
+
     Ext.create('Animals.view.main.MultiSourceList', {
       renderTo: document.body,
       modal: true,
-      store: 'sources'
-    });
-    console.log(item)
+      store: Ext.create('Animals.store.Sources', {
+        proxy: {
+          type: 'memory',
+          data: item.data ? item.data.sources : item.sources,
+          reader: {
+            type: 'json'
+          }
+        }
+      })
+    }).store.load();
+
+  },
+  onEditSource(grid, r, c, button, e, item) {
+    this.processEntry(item, 'Animals.model.Source', 'sources', grid,
+      () => {
+        this.processBilingualItem(
+          grid.up('panel').body, {
+            modelData: item,
+            store: Ext.data.StoreManager.lookup('sources'),
+            additionalFields: [{
+              xtype: 'filefield',
+              fieldLabel: 'მიბმული დოკუმენტი',
+              name: 'name',
+              bind: '{model.attached_document}'
+            }]
+          }, item)
+      })
+  },
+  onRemoveSource(grid, r, c, button, e, item) {
+    let data = Ext.data.StoreManager
+      .lookup('speciesdata')
+      .query(id, item.species_data_id, false, false, true)
+      .getAt(0).removeSource(item);
+
   }
 })
 ;

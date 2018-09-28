@@ -50,7 +50,7 @@ Ext.define('Animals.Application', {
         if (isMove) return;
         records.forEach(record => {
           let indx = store.proxy.data.indexOf(store.proxy.data.find(e => e.id === record.id));
-          if (indx > -1) store.proxy.data.splice(index, 1)
+          if (indx > -1) store.proxy.data.splice(indx, 1)
         })
       }
     };
@@ -85,18 +85,27 @@ Ext.define('Animals.Application', {
       },
     });
     speciesData = Ext.data.StoreManager.lookup('speciesdata');
-    if (speciesData.proxy.data !== undefined)
+    if (speciesData.proxy.data !== undefined) {
       ((items, mun, spec, sources) => {
         items.map(item => {
 
           item.municipality = mun.getAt(item.municipality - 1);
           item.species = spec.getAt(item.species - 1);
-          item.source = sources.getAt(item.source - 1)
+          item.sources = sources.query('species_data_id', item.id, false, false, true).items.reduce(
+            (arr, src) => {
+              arr.push(src);
+              return arr;
+            }, []
+          );
+          // item.sources = item.sources.reduce((cur, src) => {
+          //   cur.push(typeof src === "number" ? sources.getAt(src - 1) : src);
+          //   return cur;
+          // }, [])
         });
         return items;
 
       })(speciesData.proxy.data, mun, species, sources);
-
+    }
     Ext.state.Manager.setProvider(new Ext.state.CookieProvider({
       expires: new Date(Ext.Date.now() + (1000 * 60 * 60 * 24 * 90)) // 90 days
     }));

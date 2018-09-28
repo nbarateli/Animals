@@ -19,8 +19,8 @@ Ext.define('Animals.view.main.SpeciesDataForm',
       editSpecies: BLANK_FUNCTION,
       addMunicipality: BLANK_FUNCTION,
       editMunicipality: BLANK_FUNCTION,
-      addSource: BLANK_FUNCTION,
-      editSource: BLANK_FUNCTION
+      addSources: BLANK_FUNCTION,
+      editSources: BLANK_FUNCTION
     },
 
     defaults: {
@@ -103,18 +103,18 @@ Ext.define('Animals.view.main.SpeciesDataForm',
           fieldLabel: 'წყარო',
           displayField: 'name_KA',
           valueField: 'id',
-          name: 'source',
-          bind: '{species.source}'
+          name: 'sources',
+          bind: '{species.sources}'
         }, {
           xtype: 'button',
           iconCls: 'x-fa fa-edit',
           tooltip: 'Edit current item',
-          handler: (e, i) => (e.up('form').handlers.editSource || BLANK_FUNCTION)(e, i)
+          handler: (e, i) => (e.up('form').handlers.editSources || BLANK_FUNCTION)(e, i)
         }, {
           xtype: 'button',
           iconCls: 'x-fa fa-plus',
           tooltip: 'Add a new item to the store',
-          handler: (e, i) => (e.up('form').handlers.addSource || BLANK_FUNCTION)(e, i)
+          handler: (e, i) => (e.up('form').handlers.addSources || BLANK_FUNCTION)(e, i)
         }]
       }]
     ,

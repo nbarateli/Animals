@@ -7,7 +7,7 @@ Ext.define('Animals.model.SpeciesData', {
     {name: 'species', type: 'auto'},
     {name: 'date', type: 'date'},
     {name: 'population', type: 'integer'},
-    {name: 'source', type: 'auto'},
+    {name: 'sources', type: 'auto'},
     {name: 'municipality', type: 'auto'}
   ],
 
@@ -16,6 +16,19 @@ Ext.define('Animals.model.SpeciesData', {
     municipality: 'presence',
     source: 'presence',
     population: pop => pop >= 0
+  },
+  removeSource(source) {
+    let id = source.data ? source.data.id : source.id ? source.id : source;
+    let sources = this.get('sources');
+    let indx = sources.indexOf(sources.find(e => e.id === id));
+
+    if (indx > -1) {
+      let sourceStore = Ext.data.StoreManager.lookup('sources');
+      debugger
+      let q = sourceStore.query('id', id, false, false, true);
+      sourceStore.remove(q);
+      sources.splice(indx, 1);
+    }
   }
 })
 ;

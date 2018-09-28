@@ -5,6 +5,7 @@ Ext.define('Animals.view.main.MultiSourceList', {
   bodyPadding: 5,
   floating: true,
   closable: true,
+  title: 'წყაროები/მეთოდები',
   xtype: 'msrclist',
   columns: [
     {
@@ -17,7 +18,7 @@ Ext.define('Animals.view.main.MultiSourceList', {
           let sources = Ext.data.StoreManager.lookup('sources');
           if (typeof  record === "number") record = sources.getAt(sources.findBy((rec, id) => id === record));
 
-          let rend = record.data ? {...record.data} : {...record};
+          let rend = record.data || record;
           return `<a target="_blank" href='${rend.attached_document}'>${rend.name_KA}</a> \t• <a target="_blank" href='${rend.attached_document}'>${rend.name_EN}</a>`
         },
       sortable:
@@ -49,12 +50,13 @@ Ext.define('Animals.view.main.MultiSourceList', {
             xtype: 'button',
             iconCls: 'x-fa fa-edit',
             tooltip: 'Edit this source',
-
+            handler: 'onEditSource'
           }, {/*blank space*/},
           {
             xtype: 'button',
             iconCls: 'x-fa fa-minus-square-o',
             tooltip: 'Remove from source list',
+            handler: 'onRemoveSource'
           }
         ]
     },

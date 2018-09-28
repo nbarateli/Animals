@@ -3,6 +3,7 @@ Ext.define('Animals.model.Source', {
 
   fields: [
     {name: 'id', type: 'int'},
+    {name: 'species_data_id', type: 'int', reference: 'Animals.model.SpeciesData'},
     {name: 'name_KA', type: 'string'},
     {name: 'name_EN', type: 'string'},
     {name: 'attached_document', type: 'string'}

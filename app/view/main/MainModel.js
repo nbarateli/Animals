@@ -101,72 +101,84 @@ data = {
   sources: [
     {
       id: 1,
+      species_data_id: 1,
       name_KA: 'წყაროების წყარო',
       name_EN: 'The source to end all sources',
       attached_document: 'source.jpg'
     },
     {
       id: 2,
+      species_data_id: 2,
       name_KA: 'ჩემი ძმაკანა ტოო',
       name_EN: 'My Dzmakana',
       attached_document: 'source.jpg'
     },
     {
       id: 3,
+      species_data_id: 3,
       name_KA: 'თერიბლ',
       name_EN: 'Terrible',
       attached_document: 'source.jpg'
     },
     {
       id: 4,
+      species_data_id: 4,
       name_KA: 'ჯიგარი სორსი',
       name_EN: 'Jigar sauce',
       attached_document: 'source.jpg'
     },
     {
       id: 5,
+      species_data_id: 5,
       name_KA: 'ლომპორტი',
       name_EN: 'Lion\'s Den',
       attached_document: 'source.jpg'
     },
     {
       id: 6,
+      species_data_id: 6,
       name_KA: 'წავიდა გულავი',
       name_EN: 'Tsavi & gulavi',
       attached_document: 'source.jpg'
     },
     {
       id: 7,
+      species_data_id: 7,
       name_KA: 'სენაკი სითი ლაიფ',
       name_EN: 'West side',
       attached_document: 'source.jpg'
     },
     {
       id: 8,
+      species_data_id: 8,
       name_KA: 'დადიანის მენიუ',
       name_EN: 'menu of the restaurant Dadiani',
       attached_document: 'source.jpg'
     },
     {
       id: 9,
+      species_data_id: 9,
       name_KA: 'ჰან სოლო',
       name_EN: 'dies in force awakens',
       attached_document: 'source.jpg'
     },
     {
       id: 10,
+      species_data_id: 10,
       name_KA: 'ეჰ',
       name_EN: 'eh',
       attached_document: 'source.jpg'
     },
     {
       id: 11,
+      species_data_id: 11,
       name_KA: 'ასე ჯობია',
       name_EN: 'a lance through',
       attached_document: 'source.jpg'
     },
     {
       id: 12,
+      species_data_id: 12,
       name_KA: 'თაბლე',
       name_EN: 'Table',
       attached_document: 'source.jpg'
@@ -184,7 +196,7 @@ data = {
       source_name_EN: 'The source to end all sources',
       source_attached_document: 'source.jpg',
       id: 1,
-      source: 1
+      sources: [1]
     },
     {
       name_KA: 'ვეფხვი',
@@ -197,7 +209,7 @@ data = {
       source_name_EN: 'My Dzmakana',
       source_attached_document: 'source.jpg',
       id: 2,
-      source: 2
+      sources: [2]
     },
     {
       name_KA: 'ნიყვი',
@@ -210,7 +222,7 @@ data = {
       source_name_EN: 'Terrible',
       source_attached_document: 'source.jpg',
       id: 3,
-      source: 3
+      sources: [3]
     },
     {
       name_KA: 'ციყვი',
@@ -223,7 +235,7 @@ data = {
       source_name_EN: 'Jigar sauce',
       source_attached_document: 'source.jpg',
       id: 4,
-      source: 4
+      sources: [4]
     },
     {
       name_KA: 'ლომი',
@@ -236,7 +248,7 @@ data = {
       source_name_EN: 'Lion\'s Den',
       source_attached_document: 'source.jpg',
       id: 5,
-      source: 5
+      sources: [5]
     },
     {
       name_KA: 'წავი',
@@ -249,7 +261,7 @@ data = {
       source_name_EN: 'Tsavi & gulavi',
       source_attached_document: 'source.jpg',
       id: 6,
-      source: 6
+      sources: [6]
     },
     {
       name_KA: 'ირემი',
@@ -262,7 +274,7 @@ data = {
       source_name_EN: 'West side',
       source_attached_document: 'source.jpg',
       id: 7,
-      source: 7
+      sources: [7]
     },
     {
       name_KA: 'ელარჯი',
@@ -275,7 +287,7 @@ data = {
       source_name_EN: 'menu of the restaurant Dadiani',
       source_attached_document: 'source.jpg',
       id: 8,
-      source: 8
+      sources: [8]
     },
     {
       name_KA: 'ავაზა',
@@ -288,7 +300,7 @@ data = {
       source_name_EN: 'dies in force awakens',
       source_attached_document: 'source.jpg',
       id: 9,
-      source: 9
+      sources: [9]
     },
     {
       name_KA: 'ჯიქი',
@@ -301,7 +313,7 @@ data = {
       source_name_EN: 'eh',
       source_attached_document: 'source.jpg',
       id: 10,
-      source: 10
+      sources: [10]
     },
     {
       name_KA: 'ჯიქი',
@@ -314,7 +326,7 @@ data = {
       source_name_EN: 'a lance through',
       source_attached_document: 'source.jpg',
       id: 11,
-      source: 11
+      sources: [11]
     },
     {
       name_KA: 'ბრიყვი',
@@ -327,7 +339,7 @@ data = {
       source_name_EN: 'Table',
       source_attached_document: 'source.jpg',
       id: 12,
-      source: 12
+      sources: [12]
     }
   ]
 };
@@ -350,8 +362,10 @@ Ext.define('Animals.view.main.MainModel', {
         remove: (store, records, index, isMove) => {
           if (isMove) return;
           records.forEach(record => {
+            let sources = Ext.data.StoreManager.lookup('sources');
+            sources.remove(sources.query('species_data_id', record.id, false, false, true).data);
             let indx = store.proxy.data.indexOf(store.proxy.data.find(e => e.id === record.id));
-            if (indx > -1) store.proxy.data.splice(index, 1)
+            if (indx > -1) store.proxy.data.splice(indx, 1)
           })
         }
       }
