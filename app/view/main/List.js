@@ -102,6 +102,19 @@ Ext.define('Animals.view.main.List', {
       xtype: 'actioncolumn',
       align: 'center',
       flex: 1,
+      filter: {
+        type: 'string',
+        filterFn: function (item, filter) {
+          if (filter === undefined || filter === "") return true;
+          let reg = new RegExp(filter.replace(/(\\|\||\.|\^|\$|\*|\+|-|\?|={|}|\[|]|\(|\))/gi,
+            '\\$1'), 'gi');
+          let sources = item.get('sources');
+          return sources.reduce((current, val) => current || val.get('name_KA').match(reg) !== null ||
+            val.get('name_EN').match(reg) !== null ||
+            val.get('attached_document').match(reg) !== null, false)
+
+        }
+      },
       items:
         [
           {
