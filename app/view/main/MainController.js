@@ -1,17 +1,12 @@
 function processItem(item) {
   let mun = Ext.data.StoreManager.lookup('municipalities'),
-    spec = Ext.data.StoreManager.lookup('species'),
-    sources = Ext.data.StoreManager.lookup('sources');
-
+    spec = Ext.data.StoreManager.lookup('species');
   item.municipality = item.get('municipality').id === undefined ?
     mun.getAt(mun.findBy((rec, id) => id === item.get('municipality')))
     : item.get('municipality');
   item.species = item.get('species').id === undefined ?
     spec.getAt(spec.findBy((rec, id) => id === item.get('species')))
     : item.get('species');
-  item.source = item.get('source').id === undefined ?
-    sources.getAt(sources.findBy((rec, id) => id === item.get('source')))
-    : item.get('source');
 
   return item;
 }
@@ -44,13 +39,14 @@ Ext.define('Animals.view.main.MainController', {
             if (!editEntry)
               options.store.add(options.modelData);
             options.store.sync();
+            options.store.load();
             panel.destroy();
           }
         }
       }
     });
 
-    panel.setZIndex(1000);
+    panel.setZIndex(50);
     options.additionalFields = options.additionalFields || [];
     options.additionalFields.map(itm => {
       let a = panel.add(itm);
@@ -95,7 +91,7 @@ Ext.define('Animals.view.main.MainController', {
       {
         title: 'შეცვლა',
         viewModel: {
-          type: 'species',
+          type: 'datamodel',
           data: {
             species: record
           }
@@ -117,7 +113,8 @@ Ext.define('Animals.view.main.MainController', {
           editMunicipality: () => this.processEntry(panel.getForm().findField('municipality').getModelData(), 'Animals.model.Municipality', 'municipalities', panel, this.processBilingualItem),
           addSource: () => this.processSource(false, panel, this.processBilingualItem, this.processEntry),
           editSource: () =>
-            this.processSource(panel.getForm().findField('source').getModelData(), panel, this.processBilingualItem, this.processEntry)
+            this.processSource(panel.getForm().findField('source').getModelData(), panel, this.processBilingualItem, this.processEntry),
+          viewSources: () => this.showSources(panel, record, true)
 
         }
       });
@@ -138,11 +135,12 @@ Ext.define('Animals.view.main.MainController', {
   onAddItem: function () {
     let speciesData = Ext.data.StoreManager.lookup('speciesdata');
     let newItem = Ext.create('Animals.model.SpeciesData');
+    newItem.data.sources = [];
     let panel =
       Ext.create('Animals.view.main.SpeciesDataForm', {
         title: 'დამატება',
         viewModel: {
-          type: 'species',
+          type: 'datamodel',
           data: {
             species: newItem
           }
@@ -163,7 +161,8 @@ Ext.define('Animals.view.main.MainController', {
           editMunicipality: () => this.processEntry(panel.getForm().findField('municipality').getModelData(), 'Animals.model.Municipality', 'municipalities', panel, this.processBilingualItem),
           addSource: () => this.processSource(false, panel, this.processBilingualItem, this.processEntry),
           editSource: () =>
-            this.processSource(panel.getForm().findField('source').getModelData(), panel, this.processBilingualItem, this.processEntry)
+            this.processSource(panel.getForm().findField('source').getModelData(), panel, this.processBilingualItem, this.processEntry),
+          viewSources: () => this.showSources(panel, newItem, true, true)
 
         }
       });
@@ -219,11 +218,55 @@ Ext.define('Animals.view.main.MainController', {
 
     },
   onShowSources(grid, r, c, button, e, item) {
+    this.showSources(grid, item, false);
+  },
+  showSources(grid, item, isEditing, adding) {
 
     Ext.create('Animals.view.main.MultiSourceList', {
       renderTo: document.body,
       modal: true,
-      store: Ext.create('Animals.store.Sources', {
+      isEditing: isEditing,
+
+      addSource: (bt) => {
+
+        let newItem = Ext.create('Animals.model.Source');
+        let panel = Ext.create('Animals.view.main.BilingualEntryForm',
+          {
+            renderTo: bt.up('msrclist').body,
+            title: 'დამატება',
+            model: 'Animals.model.Source',
+            draggable: true,
+            viewModel: {
+              data: {
+                model: newItem
+              }
+            },
+            handlers: {
+              save: function (e) {
+                let form = e.up('form').getForm();
+                if (form.isValid()) {
+
+                  item.addSource(newItem);
+                  bt.up('msrclist').store.setData(item.get('sources'));
+
+                  bt.up('msrclist').store.sync();//.load();
+                  panel.destroy();
+                }
+              }
+            }
+          });
+        let a = panel.add({
+          xtype: 'filefield',
+          fieldLabel: 'მიბმული დოკუმენტი',
+          name: 'name',
+          bind: '{model.attached_document}'
+        });
+        panel.setHeight(panel.getHeight() + a.getHeight() + 5);
+
+      },
+      store: Ext.create('Ext.data.Store', {
+        autoload: true,
+        model: 'Animals.model.Source',
         proxy: {
           type: 'memory',
           data: item.data ? item.data.sources : item.sources,
@@ -231,9 +274,10 @@ Ext.define('Animals.view.main.MainController', {
             type: 'json'
           }
         }
-      })
+      }),
+      dataItem: adding ? item : undefined,
+      zIndex: 500
     }).store.load();
-
   },
   onEditSource(grid, r, c, button, e, item) {
     this.processEntry(item, 'Animals.model.Source', 'sources', grid,
@@ -252,10 +296,17 @@ Ext.define('Animals.view.main.MainController', {
       })
   },
   onRemoveSource(grid, r, c, button, e, item) {
-    let data = Ext.data.StoreManager
-      .lookup('speciesdata')
-      .query(id, item.species_data_id, false, false, true)
-      .getAt(0).removeSource(item);
+
+    Ext.Msg.confirm('ყურადღება', 'ნამდვილად გსურთ ამ მონაცემის წაშლა?', () => {
+      debugger
+      let data = grid.up('msrclist').dataItem ||
+        Ext.data.StoreManager
+          .lookup('speciesdata')
+          .query(id, item.species_data_id, false, false, true)
+          .getAt(0);
+      data.removeSource(item);
+      grid.store.setData(data.get('sources'));
+    });
 
   }
 })

@@ -8,24 +8,43 @@ Ext.define('Animals.view.main.List', {
   xtype: 'mainlist',
   minHeight: window.innerHeight * 0.9,
   minWidth: window.innerWidth * .8,
-  tbar: [{
-    iconCls: 'x-fa fa-plus',
-    tooltip: 'Add a new item to the store',
-    handler: 'onAddItem'
-  }, {
-    iconCls: 'x-fa fa-minus',
-    tooltip: 'Remove the selected item from the store',
-    handler: 'onRemoveItem'
-  }, {
-    iconCls: 'x-fa fa-edit',
-    tooltip: 'Edit the selected item',
-    handler: 'onEditItem'
-  },
+  tbar:
+    [
+      {
+        iconCls: 'x-fa fa-plus',
+        tooltip: 'Add a new item to the store',
+        handler: 'onAddItem'
+      }, {
+      iconCls: 'x-fa fa-minus',
+      tooltip: 'Remove the selected item from the store',
+      handler: 'onRemoveItem'
+    }, {
+      iconCls: 'x-fa fa-edit',
+      tooltip: 'Edit the selected item',
+      handler: 'onEditItem'
+    },
+      {
+        text: 'Clear Filters',
+        tooltip: 'Clear all filters',
+        handler: 'onClearFilters'
+      }],
+  tools: [
     {
-      text: 'Clear Filters',
-      tooltip: 'Clear all filters',
-      handler: 'onClearFilters'
-    }],
+      type: 'gear',
+      callback(grid) {
+        Ext.Msg.confirm('Reset Grid Layout', 'Are you sure that you want to reset the grid layout?',
+
+          function (response) {
+            if (response === 'yes') {
+              // clear the state management for the grid
+              Ext.state.Manager.clear(grid.stateId);
+              // repaint the grid using the hardcoded defaults
+              grid.reconfigure(grid.getStore(), grid.initialConfig.columns);
+            }
+          });
+      }
+    }
+  ],
   requires: [
     'Ext.data.Store',
     'Ext.toolbar.Paging',
@@ -36,7 +55,8 @@ Ext.define('Animals.view.main.List', {
   bind: '{speciesdata}',
   columns: [
     {
-      text: 'Name', flex: 2,
+      text: 'Name',
+      flex: 1,
       dataIndex: 'species',
       renderer: (val, el, entry) => nameRenderer(val, el, entry, 'species'),
       sortable: true,
@@ -53,18 +73,18 @@ Ext.define('Animals.view.main.List', {
     {
       text: 'Date',
       dataIndex: 'date',
-      flex: 1,
+      flex: 0.65,
       sortable: true,
       filter: 'date',
       renderer: Ext.util.Format.dateRenderer('m/d/Y')
     },
     {
       text: 'Population', dataIndex: 'population',
-      flex: 0.75, sortable: true,
+      flex: 0.65, sortable: true,
       filter: 'number'
     },
     {
-      text: 'Municipality', dataIndex: 'municipality', flex: 2,
+      text: 'Municipality', dataIndex: 'municipality', flex: 1,
       renderer: (val, el, entry) => nameRenderer(val, el, entry, 'municipalities'),
       sortable:
         true,
@@ -78,9 +98,11 @@ Ext.define('Animals.view.main.List', {
         }
       }
     }, {
-      text: 'Sources',
+
+      text: 'Sources//Methods',
       xtype: 'actioncolumn',
       align: 'center',
+      flex: 1,
       items:
         [
           {

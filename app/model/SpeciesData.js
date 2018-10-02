@@ -17,6 +17,14 @@ Ext.define('Animals.model.SpeciesData', {
     source: 'presence',
     population: pop => pop >= 0
   },
+  addSource(source) {
+    let sourceStore = Ext.data.StoreManager.lookup('sources');
+
+    source.set('species_data_id', this.id);
+    sourceStore.add(source);
+
+    this.get('sources').push(source);
+  },
   removeSource(source) {
     let id = source.data ? source.data.id : source.id ? source.id : source;
     let sources = this.get('sources');
@@ -24,7 +32,7 @@ Ext.define('Animals.model.SpeciesData', {
 
     if (indx > -1) {
       let sourceStore = Ext.data.StoreManager.lookup('sources');
-      debugger
+
       let q = sourceStore.query('id', id, false, false, true);
       sourceStore.remove(q);
       sources.splice(indx, 1);

@@ -7,6 +7,8 @@ Ext.define('Animals.view.main.MultiSourceList', {
   closable: true,
   title: 'წყაროები/მეთოდები',
   xtype: 'msrclist',
+  isEditing: false,
+  dataItem: undefined,
   columns: [
     {
       text: 'Source',
@@ -39,7 +41,7 @@ Ext.define('Animals.view.main.MultiSourceList', {
         }
     },
     {
-      width: 100,
+      width: 130,
       xtype: 'actioncolumn',
       text: 'Actions',
 
@@ -60,5 +62,17 @@ Ext.define('Animals.view.main.MultiSourceList', {
           }
         ]
     },
-  ]
-});
+  ],
+  constructor(options) {
+    options.tbar = [
+      {
+        iconCls: 'x-fa fa-plus',
+        handler: options.addSource || BLANK_FUNCTION,
+        disabled: !options.isEditing,
+
+      }
+    ];
+    this.callParent(arguments)
+  }
+})
+;

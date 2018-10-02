@@ -108,7 +108,7 @@ data = {
     },
     {
       id: 2,
-      species_data_id: 2,
+      species_data_id: 1,
       name_KA: 'ჩემი ძმაკანა ტოო',
       name_EN: 'My Dzmakana',
       attached_document: 'source.jpg'
@@ -348,16 +348,22 @@ Ext.define('Animals.view.main.MainModel', {
   extend: 'Ext.app.ViewModel',
 
   alias: 'viewmodel.main',
-
+  model: 'Animals.model.SpeciesData',
   stores: {
     speciesdata: Ext.create('Animals.store.SpeciesData', {
       storeId: 'speciesdata', localData: data,
       listeners: {
         add: (store, records) => {
           records.forEach(
-            record => store.proxy.data.push({
-              ...record.data, id: store.proxy.data[store.proxy.data.length - 1].id + 1
-            }));
+            record => {
+
+              record = {
+                ...record.data, id: store.proxy.data[store.proxy.data.length - 1].id + 1
+              };
+              record.sources.map(src => src.set('species_data_id', record.id));
+              store.proxy.data.push(record)
+
+            });
         },
         remove: (store, records, index, isMove) => {
           if (isMove) return;

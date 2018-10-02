@@ -41,10 +41,10 @@ Ext.define('Animals.Application', {
   init() {
     let listeners = {
       add: (store, records) => {
-        records.forEach(record => store.proxy.data.push({
-          ...record.data,
-          id: store.proxy.data[store.proxy.data.length - 1].id + 1
-        }));
+        records.forEach(record => {
+          record = {...record.data, id: store.proxy.data[store.proxy.data.length - 1].id + 1}
+          store.proxy.data.push(record)
+        });
       },
       remove: (store, records, index, isMove) => {
         if (isMove) return;
@@ -73,9 +73,9 @@ Ext.define('Animals.Application', {
         add: (store, records) => {
           records.forEach(record => {
             record.data.attached_document = getFileName(record.data.attached_document);
-            store.proxy.data.push({
-              ...record.data, id: store.proxy.data[store.proxy.data.length - 1].id + 1
-            })
+            record = {...record.data, id: store.proxy.data[store.proxy.data.length - 1].id + 1}
+
+            store.proxy.data.push(record);
           });
         },
         update: (store, record) => {

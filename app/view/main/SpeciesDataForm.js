@@ -20,7 +20,8 @@ Ext.define('Animals.view.main.SpeciesDataForm',
       addMunicipality: BLANK_FUNCTION,
       editMunicipality: BLANK_FUNCTION,
       addSources: BLANK_FUNCTION,
-      editSources: BLANK_FUNCTION
+      editSources: BLANK_FUNCTION,
+      viewSources: BLANK_FUNCTION
     },
 
     defaults: {
@@ -34,6 +35,7 @@ Ext.define('Animals.view.main.SpeciesDataForm',
         xtype: 'container', layout: 'hbox',
         items: [{
           xtype: 'combobox',
+          editable: false,
           store: 'species',
           displayField: 'name_KA',
           valueField: 'id',
@@ -77,6 +79,7 @@ Ext.define('Animals.view.main.SpeciesDataForm',
         layout: 'hbox',
         items: [{
           xtype: 'combobox',
+          editable: false,
           store: 'municipalities',
           fieldLabel: 'მუნიციპალიტეტი',
           displayField: 'name_KA',
@@ -94,28 +97,22 @@ Ext.define('Animals.view.main.SpeciesDataForm',
           tooltip: 'Add a new item to the store',
           handler: (e, i) => (e.up('form').handlers.addMunicipality || BLANK_FUNCTION)(e, i)
         }]
-      }, {
+      },
+      {
         xtype: 'container',
         layout: 'hbox',
-        items: [{
-          xtype: 'combobox',
-          store: 'sources',
-          fieldLabel: 'წყარო',
-          displayField: 'name_KA',
-          valueField: 'id',
-          name: 'sources',
-          bind: '{species.sources}'
-        }, {
-          xtype: 'button',
-          iconCls: 'x-fa fa-edit',
-          tooltip: 'Edit current item',
-          handler: (e, i) => (e.up('form').handlers.editSources || BLANK_FUNCTION)(e, i)
-        }, {
-          xtype: 'button',
-          iconCls: 'x-fa fa-plus',
-          tooltip: 'Add a new item to the store',
-          handler: (e, i) => (e.up('form').handlers.addSources || BLANK_FUNCTION)(e, i)
-        }]
+        id: 'container',
+        items: [
+          {
+            xtype: 'displayfield',
+            fieldLabel: 'წყაროები',
+          }, {
+            xtype: 'button',
+            iconCls: 'x-fa fa-eye',
+            tooltip: 'View a list of sources associated with this item.',
+            handler: (e, i) => (e.up('form').handlers.viewSources || BLANK_FUNCTION)(e, i)
+
+          }]
       }]
     ,
     // Reset and Submit buttons
