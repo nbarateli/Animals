@@ -1,7 +1,6 @@
 /**
  * This view is an example list of people.
  */
-let args;
 Ext.define('Animals.view.main.List', {
 
   extend: 'Ext.grid.Panel',

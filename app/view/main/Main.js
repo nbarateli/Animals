@@ -74,17 +74,34 @@ Ext.define('Animals.view.main.Main', {
     }
   },
 
-  items: [{
-    title: 'სახეობები',
-    iconCls: 'fa-home',
-    // The following grid shares a store with the classic version's grid as well!
-    items: [{
-      xtype: 'mainlist',
-      stateful: true,
-      stateId: 'statefulgrid',
+  items: [
+    {
+      title: 'სახეობები',
+      iconCls: 'fa-paw',
+      // The following grid shares a store with the classic version's grid as well!
+      items: [{
+        xtype: 'mainlist',
+        stateful: true,
+        stateId: 'datagrid',
+      }
+      ]
+    },
+    {
+      title: 'მუნიციპალიტეტები',
+      iconCls: 'fa fa-building',
+      // The following grid shares a store with the classic version's grid as well!
+      items: [
+        {
+          xtype: 'municipalitylist',
+          stateful: true,
+          stateId: 'municipalityGrid',
+          viewModel: {
+            model: 'Animals.model.Municipality'
+          },
+          store: 'municipalities'
+        }
+      ]
     }
-    ]
-  }
   ]
 })
 ;

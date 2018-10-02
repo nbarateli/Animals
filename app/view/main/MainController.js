@@ -38,6 +38,7 @@ Ext.define('Animals.view.main.MainController', {
           if (form.isValid()) {
             if (!editEntry)
               options.store.add(options.modelData);
+            console.log(options.store)
             options.store.sync();
             options.store.load();
             panel.destroy();
